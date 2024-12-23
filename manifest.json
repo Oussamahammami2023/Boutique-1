@@ -1,6 +1,6 @@
 {
   "name": "Boutique 1",
-  "short_name": "Tnwork",
+  "short_name": "Boutique 1",
   "start_url": "index.html",
    "scope": "/",
   "display": "standalone", 
