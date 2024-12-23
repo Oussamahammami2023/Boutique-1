@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>E-commerce Page</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+
+  .header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.header-top .logo {
+  height: 35px;
+}
+
+.notification-icon {
+  font-size: 23px; /* حجم الأيقونة */
+  color: #555; /* لون الأيقونة */
+  cursor: pointer;
+}
+.notification-icon:hover {
+  color: #007bff; /* لون الأيقونة عند التمرير */
+}
+
+.header-bottom {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.header-bottom .menu-icon {
+  width: 30px;
+  height: 30px;
+  background-color: #ddd;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.header-bottom .menu-icon::before {
+  content: '\2630'; /* رمز القائمة */
+  font-size: 18px;
+  color: #555;
+}
+
+.header-bottom input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background-color: #f5f5f5;
+}
+
+    /* Banner Section */
+    .banner-container {
+      overflow: hidden;
+      margin-top :103px;
+    }
+
+    .banner {
+      display: flex;
+      overflow-x: hidden;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+    }
+
+    .banner img {
+      flex-shrink: 0;
+      width: 100%;
+      height: 200px;
+      scroll-snap-align: center;
+      border-radius: 10px;
+    }
+    /* Categories Section */
+    .categories-container {
+      padding: 4px 0;
+      background: white;
+      margin-bottom: 8px;
+    }
+    .categories-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      padding:10px;
+      
+    }
+    .categories-header h2 {
+      font-size: 18px;
+      margin: 0;
+      font-weight: bold;
+      
+    }
+    .categories-header a {
+      font-size: 14px;
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+      color: inherit;
+    }
+
+    .categories-header a:hover {
+      text-decoration: underline;
+    }
+
+    .categories {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .categories::-webkit-scrollbar {
+      display: none;
+    }
+
+    .categories div {
+      flex: 0 0 auto;
+      text-align: center;
+    }
+
+    .categories img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      margin-bottom: 5px;
+    }
+
+    .categories p {
+      font-size: 14px;
+      margin: 0;
+    }
+
+    .categories a {
+      text-decoration: none;
+      color: inherit;
+    }
+      .products-container {
+      padding: 20px 10px;
+      background: white;
+    }
+
+    .products-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .products-header h2 {
+      font-size: 18px;
+      margin: 0;
+      font-weight: bold;
+    }
+
+    .products {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .product {
+      flex: 1;
+      padding: 10px;
+      background: #f9f9f9;
+      margin-right: 10px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .product:last-child {
+      margin-right: 0;
+    }
+
+    .product img {
+      width: 100%;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .product h3 {
+      font-size: 16px;
+      margin: 5px 0;
+    }
+
+    .product p {
+      font-size: 14px;
+      color: #666;
+      margin: 5px 0;
+    }
+
+    .product .price {
+      font-weight: bold;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+<div class="header">
+  <!-- الصف العلوي: الشعار وأيقونة الإشعارات -->
+<div class="header-top">
+  <img src="/img/logo /1.png" class="logo">
+  <div class="notification-icon">
+    <i class="fas fa-bell"></i>
+  </div>
+</div>
+
+  <!-- الصف السفلي: أيقونة القائمة وخانة البحث -->
+  <div class="header-bottom">
+    <div class="menu-icon" onclick="toggleSidebar(event)"></div>
+    <input type="text" placeholder="Rechercher dans les services de Majaz Al Bab">
+  </div>
+</div>
+
+  <!-- Banner Section -->
+  <div class="banner-container">
+    <div class="banner" id="banner">
+      <img src="/img/TN_Gen_mSlider.png" alt="Banner 1">
+      <img src="/img/TN_Gen_mSliderT1.gif" alt="Banner 2">
+      <img src="/img/B1.jpg" alt="Banner 3">
+    </div>
+  </div>
+
+  <!-- Categories Section -->
+  <div class="categories-container">
+    <div class="categories-header">
+      <h2>Shop by Category</h2>
+      <a href="#">See All</a>
+    </div>
+    <div class="categories">
+      <a href="women.html">
+        <div>
+          <img src="https://via.placeholder.com/50" alt="Women">
+          <p>Femme</p>
+        </div>
+      </a>
+      <a href="men.html">
+        <div>
+          <img src="https://via.placeholder.com/50" alt="Men">
+          <p>Homme</p>
+        </div>
+      </a>
+      <a href="teens.html">
+        <div>
+          <img src="https://via.placeholder.com/50" alt="Teens">
+          <p>Teens</p>
+        </div>
+      </a>
+      <a href="kids.html">
+        <div>
+          <img src="https://via.placeholder.com/50" alt="Kids">
+          <p>Kids</p>
+        </div>
+      </a>
+       <a href="women.html">
+        <div>
+          <img src="https://via.placeholder.com/50" alt="Women">
+          <p>Femme</p>
+        </div>
+      </a>
+      <a href="men.html">
+        <div>
+          <img src="https://via.placeholder.com/50" alt="Men">
+          <p>Homme</p>
+        </div>
+      </a>
+      <a href="teens.html">
+        <div>
+          <img src="https://via.placeholder.com/50" alt="Teens">
+          <p>Teens</p>
+        </div>
+      </a>
+      <a href="kids.html">
+        <div>
+          <img src="https://via.placeholder.com/50" alt="Kids">
+          <p>Kids</p>
+        </div>
+      </a>
+    </div>
+  </div>
+    <!-- Products Section -->
+  <div class="products-container">
+    <div class="products-header">
+      <h2>Curated For You</h2>
+    </div>
+    <div class="products">
+      <div class="product">
+        <img src="https://via.placeholder.com/150" alt="Product 1">
+        <h3>Oversized Fit Printed</h3>
+        <p>H&M - 4.9 (136)</p>
+        <p class="price">$295.00</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/150" alt="Product 2">
+        <h3>Printed Sweatshirt</h3>
+        <p>NASA - 4.8 (178)</p>
+        <p class="price">$314.00</p>
+      </div>
+      </div>
+      <div class="products">
+      <div class="product">
+        <img src="https://via.placeholder.com/150" alt="Product 1">
+        <h3>Oversized Fit Printed</h3>
+        <p>H&M - 4.9 (136)</p>
+        <p class="price">$295.00</p>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/150" alt="Product 2">
+        <h3>Printed Sweatshirt</h3>
+        <p>NASA - 4.8 (178)</p>
+        <p class="price">$314.00</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const banner = document.getElementById('banner');
+    const images = banner.children;
+    let index = 0;
+
+    function scrollBanner() {
+      index = (index + 1) % images.length;
+      const offset = images[index].offsetLeft;
+      banner.scrollTo({ left: offset, behavior: 'smooth' });
+    }
+
+    setInterval(scrollBanner, 3000); // التمرير كل 3 ثوانٍ
+  </script>
+</body>
+</html>
