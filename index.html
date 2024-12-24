@@ -179,62 +179,65 @@
       color: inherit;
     }
       .products-container {
-      padding: 20px 6px;
-      background: white;
-    }
+  padding: 20px 6px;
+  background: white;
+}
 
-    .products-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
+.products-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
 
-    .products-header h2 {
-      font-size: 19px;
-      margin: 0;
-      font-weight: bold;
-    }
+.products {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px; /* لإضافة المسافات بين العناصر */
+  margin-bottom: 20px; /* إضافة مسافة بين الأقسام */
+}
 
-    .products {
-      display: flex;
-      justify-content: space-between;
-    }
+.product {
+  flex: 1;
+  padding: 10px;
+  background: #f9f9f9;
+  border-radius: 10px;
+  text-align: center;
+  box-sizing: border-box; /* التأكد من أن الحشوة والمسافات لا تؤثر على الحجم الإجمالي */
+}
 
-    .product {
-      flex: 1;
-      padding: 10px;
-      background: #f9f9f9;
-      margin-right: 10px;
-      border-radius: 10px;
-      text-align: center;
-    }
+.product img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 10px;
+}
 
-    .product:last-child {
-      margin-right: 0;
-    }
+.product h3 {
+  font-size: 16px;
+  margin: 5px 0;
+}
 
-    .product img {
-      width: 100%;
-      border-radius: 10px;
-      margin-bottom: 10px;
-    }
+.product p {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
 
-    .product h3 {
-      font-size: 16px;
-      margin: 5px 0;
-    }
+.product .price {
+  font-weight: bold;
+  color: #000;
+}
 
-    .product p {
-      font-size: 14px;
-      color: #666;
-      margin: 5px 0;
-    }
+/* تنسيق الأيقونة الثلاث نقاط */
+.three-dots {
+  font-size: 20px;
+  cursor: pointer;
+  color: #555;
+}
 
-    .product .price {
-      font-weight: bold;
-      color: #000;
-    }
+.three-dots:hover {
+  color: #007bff;
+}
      .footer {
     position: fixed;
     bottom: 0;
@@ -347,40 +350,43 @@ body {
       </a>
     </div>
   </div>
-    <!-- Products Section -->
-  <div class="products-container">
-    <div class="products-header">
-      <h2>Recommandé pour vous</h2>
-    </div>
-    <div class="products">
-      <div class="product">
-        <img src="https://via.placeholder.com/150" alt="Product 1">
-        <h3>Oversized Fit Printed</h3>
-        <p>H&M - 4.9 (136)</p>
-        <p class="price">$295.00</p>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/150" alt="Product 2">
-        <h3>Printed Sweatshirt</h3>
-        <p>NASA - 4.8 (178)</p>
-        <p class="price">$314.00</p>
-      </div>
-      </div>
-      <div class="products">
-      <div class="product">
-        <img src="https://via.placeholder.com/150" alt="Product 1">
-        <h3>Oversized Fit Printed</h3>
-        <p>H&M - 4.9 (136)</p>
-        <p class="price">$295.00</p>
-      </div>
-      <div class="product">
-        <img src="https://via.placeholder.com/150" alt="Product 2">
-        <h3>Printed Sweatshirt</h3>
-        <p>NASA - 4.8 (178)</p>
-        <p class="price">$314.00</p>
-      </div>
+ <!-- Products Section -->
+<div class="products-container">
+  <div class="products-header">
+    <h2>Recommandé pour vous</h2>
+    <div class="three-dots">
+      <i class="fas fa-ellipsis-v"></i>
     </div>
   </div>
+  <div class="products">
+    <div class="product">
+      <img src="https://via.placeholder.com/150" alt="Product 1">
+      <h3>Oversized Fit Printed</h3>
+      <p>H&M - 4.9 (136)</p>
+      <p class="price">$295.00</p>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/150" alt="Product 2">
+      <h3>Printed Sweatshirt</h3>
+      <p>NASA - 4.8 (178)</p>
+      <p class="price">$314.00</p>
+    </div>
+  </div>
+  <div class="products">
+    <div class="product">
+      <img src="https://via.placeholder.com/150" alt="Product 1">
+      <h3>Oversized Fit Printed</h3>
+      <p>H&M - 4.9 (136)</p>
+      <p class="price">$295.00</p>
+    </div>
+    <div class="product">
+      <img src="https://via.placeholder.com/150" alt="Product 2">
+      <h3>Printed Sweatshirt</h3>
+      <p>NASA - 4.8 (178)</p>
+      <p class="price">$314.00</p>
+    </div>
+  </div>
+</div>
   <div class="footer">
     <div>
       <i class="fas fa-home footer-icon"></i>
