@@ -224,6 +224,34 @@
       font-weight: bold;
       color: #000;
     }
+     .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+    z-index: 10;
+}
+.footer div {
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.footer-icon {
+    font-size: 22px; /* حجم الأيقونة */
+    background-image: linear-gradient(90deg, #6ec1ff, #ab47bc); /* التدرج اللوني */
+    -webkit-background-clip: text; /* تطبيق التدرج على النص */
+    color: transparent; /* جعل النص شفافًا بحيث يظهر التدرج */
+    margin-bottom: 5px; /* مسافة بين الأيقونة والنص */
+}
+body {
+    margin-bottom: 60px; /* لتعويض ارتفاع الفوتر */
+}
   </style>
 </head>
 <body>
@@ -343,7 +371,28 @@
       </div>
     </div>
   </div>
-
+  <div class="footer">
+    <div>
+      <i class="fas fa-home footer-icon"></i>
+      <span>Accueil</span>
+    </div>
+    <div>
+      <i class="fas fa-book-open footer-icon" style="font-size: 21.5px;"></i>
+      <span>Guide</span>
+    </div>
+    <div>
+      <i class="fas fa-tags footer-icon"></i>
+      <span>Offres</span>
+    </div>
+    <div>
+      <i class="fas fa-envelope footer-icon"></i>
+      <span>Message</span>
+    </div>
+    <div>
+      <i class="fas fa-question-circle footer-icon"></i>
+      <span>Aide</span>
+    </div>
+  </div>
   <script>
     const banner = document.getElementById('banner');
     const images = banner.children;
