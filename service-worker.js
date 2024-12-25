@@ -1,4 +1,4 @@
-const CACHE_NAME = 'offline-cache-v3'; // قم بتغيير هذا الرقم في كل تحديث
+const CACHE_NAME = 'boutique1-v3'; // قم بتغيير هذا الرقم في كل تحديث
 
 self.addEventListener('install', function(event) {
   event.waitUntil(
