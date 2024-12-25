@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+  <title>The interface</title>
+  <link rel="stylesheet" href="./styles/style.css"> <!-- رابط لملف CSS -->
+      <link rel="manifest" href="manifest.json">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  
+    <style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #fff;
+    }
+  .header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+  }
+
+  .header input {
+    flex: 1;
+    padding: 8px;
+    margin-left: 10px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    background-color: #f5f5f5;
+  }
+
+  .menu-icon {
+    width: 30px;
+    height: 30px;
+    background-color: #ddd;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .menu-icon::before {
+    content: '\2630';
+    font-size: 18px;
+    color: #555;
+  }
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease;
+    z-index: 100;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .sidebar ul li {
+    margin-bottom: 15px;
+  }
+
+  .sidebar ul li a {
+    text-decoration: none;
+    color: #555;
+    font-size: 16px;
+    display: block;
+    transition: color 0.3s ease;
+  }
+
+  .sidebar ul li a:hover {
+    color: #007bff;
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+  .nav a {
+    text-decoration: none; /* إزالة الخط السفلي من الروابط */
+    color: inherit; /* استخدام نفس لون النص من العنصر الأب */
+}
+   .nav {
+    display: flex;
+    overflow-x: auto; /* السماح بالتمرير الأفقي */
+    white-space: nowrap;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 0px 0;
+    position: fixed;
+    top: 50px; /* مباشرة أسفل الهيدر */
+    left: 0;
+    right: 0;
+    z-index: 9;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.nav::-webkit-scrollbar {
+    display: none;
+}
+    .nav div {
+        font-size: 14px;
+        color: #555;
+        cursor: pointer;
+        padding: 13px 15px;
+    }
+  .nav div.active {
+    font-weight: bold;
+    padding-bottom: 5px;
+    color: transparent; /* لجعل النص شفافًا وإظهار التدرج */
+    background: linear-gradient(90deg, #6ec1ff, #ab47bc); /* تدرج أزرق فاتح مع بنفسجي */
+    -webkit-background-clip: text; /* التدرج يظهر فقط داخل النص */
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+
+.nav div.active::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px; /* سمك الخط السفلي */
+    background: linear-gradient(90deg, #6ec1ff, #ab47bc); /* نفس التدرج المستخدم في النص */
+    border-radius: 2px; /* منحنيات لطيفة للخط */
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.icons {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    background-color: #fff;
+    padding: 5px;
+    margin-top: 100px;
+    margin-bottom: -22px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.icons::-webkit-scrollbar {
+    display: none;
+}
+
+.icons div {
+    text-align: center;
+    margin-right: 18px;
+}
+
+.icons img {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto;
+}
+
+.icons p {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #555;
+}
+
+.icons a {
+    text-decoration: none; /* إزالة الخط تحت النص */
+    color: inherit; /* يضمن استخدام لون النص الطبيعي */
+}
+  .group-list {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            padding: 20px;
+            flex-wrap: wrap;
+            margin-top :90px;
+        }
+
+        .group-item img {
+            width: 384px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+      .group-item h3 {
+  font-size: 16px;
+  color: #333;
+  text-align: center;
+}
+   .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+    z-index: 10;
+}
+.footer div {
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.footer-icon {
+    font-size: 22px; /* حجم الأيقونة */
+    background-image: linear-gradient(90deg, #6ec1ff, #ab47bc); /* التدرج اللوني */
+    -webkit-background-clip: text; /* تطبيق التدرج على النص */
+    color: transparent; /* جعل النص شفافًا بحيث يظهر التدرج */
+    margin-bottom: 5px; /* مسافة بين الأيقونة والنص */
+}
+body {
+    margin-bottom: 60px; /* لتعويض ارتفاع الفوتر */
+}
+</style>
+</head>
+<body>
+    <!-- Header -->
+    <div class="header">
+    <div class="menu-icon" onclick="toggleSidebar(event)"></div>
+    <input type="text" placeholder="Rechercher dans les services de Majaz Al Bab">
+  </div>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <ul>
+    <li><a href="/T2-main/boutiques.html">Boutiques</a></li>
+    <li><a href="/T2-main/restaurants.html">Restaurants</a></li>
+    <li><a href="/T2-main/artisans.html">Artisans</a></li>
+    <li><a href="/T2-main/medecins.html">Médecins</a></li>
+    <li><a href="/T2-main/avocats.html">Avocats</a></li>
+    <li><a href="/T2-main/architectes.html">Architectes</a></li>
+    <li><a href="/T2-main/comptables.html">Comptable</a></li>
+    <li><a href="/T2-main/formation.html">Centre de formation</a></li>
+  </ul>
+</div>
+
+<!-- Navigation -->
+<div class="nav">
+<div class="active"><a href="/T2-main/boutiques.html">Électriciens</a></div>
+ <div><a href="/T2-main/index3.html">Plombiers</a></div>
+  <div><a href="/T2-main/artisans.html">Menuisiers</a></div>
+  <div><a href="/T2-main/medecins.html">Fourgons</a></div>
+  <div><a href="/T2-main/architectes.html">Maçons</a></div>
+  <div><a href="/T2-main/comptables.html">Peintres</a></div>
+  <div><a href="/T2-main/formation.html">Plâtreries</a></div>
+  <div><a href="/T2-main/formation.html">Carreleurs</a></div>
+  <div><a href="/T2-main/formation.html">Menuiserie aluminium</a></div>
+</div>
+    <div class="group-list">
+        <div class="group-item">
+            <img src="../image/Bou1.jpg" alt="المجموعة 1">
+            <h3>Boutique 1</h3>
+        </div>
+        <div class="group-item">
+            <img src="../image/Bou2.jpeg" alt="المجموعة 2">
+            <h3>Boutique 2</h3>
+        </div>
+        <div class="group-item">
+            <img src="../image/Bou3.webp" alt="المجموعة 3">
+            <h3>Boutique 3</h3>
+        </div>
+           <div class="group-item">
+            <img src="/T2-main/image/boutique /r2/bienvenue.jpg" alt="المجموعة 3">
+            <h3>Boutique 3</h3>
+        </div>
+    </div>
+    <!-- Footer -->
+  <div class="footer">
+    <div>
+      <i class="fas fa-home footer-icon"></i>
+      <span>Accueil</span>
+    </div>
+    <div>
+      <i class="fas fa-book-open footer-icon" style="font-size: 21.5px;"></i>
+      <span>Guide</span>
+    </div>
+    <div>
+      <i class="fas fa-tags footer-icon"></i>
+      <span>Offres</span>
+    </div>
+    <div>
+      <i class="fas fa-envelope footer-icon"></i>
+      <span>Message</span>
+    </div>
+    <div>
+      <i class="fas fa-question-circle footer-icon"></i>
+      <span>Aide</span>
+    </div>
+  </div>
+  <script>
+        function toggleSidebar(event) {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('active');
+            event.stopPropagation();
+        }
+        document.addEventListener('click', (event) => {
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('active') && !sidebar.contains(event.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
