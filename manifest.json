@@ -3,9 +3,9 @@
   "short_name": "Boutique 1",
   "start_url": "index.html",
    "scope": "/",
-  "display": "standalone", 
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "display": "standalone",
+"background_color": "transparent",
+"theme_color": "rgba(0,0,0,0)",
   "icons": [
     {
       "src": "image/logo/3.png",
