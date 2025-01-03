@@ -114,21 +114,51 @@
             width: 24px;
             height: 24px;
         }
-        #slideshow {
-            display: flex;
-            overflow-x: scroll;
-            scroll-snap-type: x mandatory;
-            scroll-behavior: smooth;
-        }
+       #slideshow {
+    display: flex;
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none; 
+}
+#slideshow::-webkit-scrollbar {
+    display: none; 
+}
         .slide {
             min-width: 100%;
             scroll-snap-align: start;
         }
-        .slide img {
+      .slide img {
     width: 100%;
     height: 350px; 
     object-fit: contain;
-        }
+}
+.pagination-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 10px 0;
+}
+
+.pagination-dots .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #000; /* إضافة حدود سوداء */
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.pagination-dots .dot.active {
+    background-color: #1E659E;
+}
+.divider {
+  border-top: 5px solid #F3F3F3; /* خط علوي */
+  margin: 0px 0; /* مسافة قبل وبعد الخط */
+}
         .modal-description-container {
             display: flex;
             align-items: center;
@@ -145,33 +175,30 @@
         }
       .product-list {
     display: flex;
-    justify-content: space-around; /* لتوزيع العناصر بالتساوي */
-    gap: 20px; /* لتحديد المسافات بين العناصر */
+    justify-content: space-around; 
+    gap: 20px;
     padding: 10px 0;
-    overflow-x: auto; /* للسماح بالتمرير الأفقي عند الحاجة */
+    overflow-x: auto; 
 }
-
 .product-item {
     width: 200px;
-    text-align: center; /* لجعل النصوص في المنتصف */
-    font-family: Arial, sans-serif; /* تحسين الخط */
-    background-color: #fff; /* لون خلفية المنتج */
-    border: 1px solid #ddd; /* إضافة إطار بسيط */
-    border-radius: 10px; /* جعل الزوايا مستديرة */
+    text-align: center; 
+    font-family: Arial, sans-serif; 
+    background-color: #fff;
+    border: 1px solid #ddd; 
+    border-radius: 10px;
     padding: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* إضافة ظل */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 .product-item img {
     width: 180px;
-    height: auto; /* للحفاظ على النسبة */
-    border-radius: 10px; /* تقليل زوايا الصورة */
-    margin-bottom: 10px; /* مسافة أسفل الصورة */
+    height: auto; 
+    border-radius: 10px; 
+    margin-bottom: 10px;
 }
-
 .product-item .description {
     font-size: 14px;
-    color: #333; /* لون النص الغامق */
+    color: #333; 
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 2;
@@ -205,6 +232,8 @@
                 </svg>
             </button>
             <div id="slideshow"></div>
+            <div id="pagination-dots" class="pagination-dots"></div>
+            <div class="divider"></div>
             <div class="modal-description-container" id="modal-description-container"></div>
             <p id="modal-price" style="padding: 10px; font-weight: bold;"></p>
 
@@ -219,6 +248,7 @@
                     "../image/P/images (12) (22).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (25).jpeg",
+                    "../image/P/images (12) (25).jpeg",
                 ],
                 description: "Comfortable and lightweight running shoes.",
                 price: "46.00 TND",
@@ -229,6 +259,7 @@
                     "../image/P/images (12) (21).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (25).jpeg"
+                    "../image/P/images (12) (25).jpeg",
                 ],
                 description: "Comfortable and lightweight running shoes.",
                 price: "46.00 TND",
@@ -239,6 +270,7 @@
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (22).jpeg",
                     "../image/P/images (12) (21).jpeg"
+                    "../image/P/images (12) (25).jpeg",
                 ],
                 description: "Comfortable and lightweight running shoes.",
                 price: "46.00 TND",
@@ -249,6 +281,7 @@
                     "../image/P/images (12) (25).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (21).jpeg"
+                    "../image/P/images (12) (25).jpeg",
                 ],
                 description: "Comfortable and lightweight running shoes.",
                 price: "46.00 TND",
@@ -321,12 +354,46 @@
   currentModalProduct = product;
 
   slideshow.innerHTML = '';
+  const paginationDots = document.getElementById('pagination-dots') || document.createElement('div');
+  paginationDots.classList.add('pagination-dots');
+  paginationDots.innerHTML = ''; // تفريغ الدوائر الحالية
+  if (!paginationDots.parentElement) {
+    slideshow.parentElement.appendChild(paginationDots); // إضافة الشريط فقط إذا لم يكن موجودًا
+  }
+
   product.images.forEach((image, index) => {
+    // إنشاء الصور
     const slide = document.createElement('div');
     slide.classList.add('slide');
     slide.innerHTML = `<img src="${image}" alt="Slide ${index + 1}" loading="lazy">`;
     slideshow.appendChild(slide);
+
+    // إنشاء الدوائر
+    const dot = document.createElement('div');
+    dot.classList.add('dot');
+    if (index === 0) dot.classList.add('active'); // اجعل أول دائرة نشطة
+    dot.addEventListener('click', () => {
+      slideshow.scrollTo({
+        left: index * slideshow.offsetWidth,
+        behavior: 'smooth'
+      });
+    });
+    paginationDots.appendChild(dot);
   });
+
+  // إعادة التمرير إلى الصورة الأولى بعد إضافة الصور
+  setTimeout(() => {
+    slideshow.scrollLeft = 0;
+  }, 0);
+
+  // تحديث حالة الدوائر عند التنقل
+  slideshow.addEventListener('scroll', () => {
+    const activeIndex = Math.round(slideshow.scrollLeft / slideshow.offsetWidth);
+    document.querySelectorAll('.pagination-dots .dot').forEach((dot, index) => {
+      dot.classList.toggle('active', index === activeIndex);
+    });
+  });
+
   modalDescriptionContainer.innerHTML = `
         <p>${product.description}</p>
         <i class="fas fa-star"></i>
@@ -334,8 +401,9 @@
     `;
   modalPrice.textContent = product.price;
 
+  const sortedProducts = [product, ...products.filter(prod => prod !== product)];
   productList.innerHTML = '';
-  products.forEach((prod) => {
+  sortedProducts.forEach((prod) => {
     const productItem = document.createElement('div');
     productItem.classList.add('product-item');
     productItem.innerHTML = `
@@ -354,7 +422,7 @@
   modal.style.display = 'flex';
   if (isProductFromHomepage) {
     history.pushState(null, '', '#product-modal');
-    isProductFromHomepage = false; // تأكد من أن السجل سيتم إضافته فقط عند زيارة الصفحة الرئيسية
+    isProductFromHomepage = false;
   }
 }
 
