@@ -252,48 +252,45 @@
   display: flex;
   justify-content: space-around;
   gap: 20px;
-  padding: 10px 0;
+  padding: 0px 0;
   overflow-x: auto;
 }
 
 #product-modal .product-item {
-  width: 200px;
+  width: 140px;
+  
   text-align: center;
   font-family: Arial, sans-serif;
   background-color: #fff;
   border: 1px solid #ddd;
   border-radius: 10px;
-  padding: 10px;
+  padding: 0px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
 #product-modal .product-item img {
-  width: 180px;
-  height: auto;
+  width: 140px;
+  height: 175px;
   border-radius: 10px;
-  margin-bottom: 10px;
 }
 
 #product-modal .product-item .description {
   font-size: 14px;
   color: #333;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  margin-bottom: 10px;
+  max-width: 150px;
+  text-align: center; /* لتوسيط النص أفقيًا */
 }
 
 #product-modal .product-item .rating {
   font-size: 12px;
   color: #ff9900;
-  margin-bottom: 10px;
 }
 
 #product-modal .product-item .price {
   font-weight: bold;
-  font-size: 16px;
+  font-size: 15px;
   color: #000;
 }
 #iframe-modal {
