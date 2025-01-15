@@ -1,91 +1,89 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منتجات الأحذية</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #ffffff;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 5px;
-            padding: 5px;
-        }
-        .blog {
-            background-color: #fff;
-            border: 0.5px solid #ddd;
-            border-radius: 3px;
-            overflow: hidden;
-            text-decoration: none;
-            color: inherit;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-        .blog img {
-            width: 100%;
-            aspect-ratio: 4 / 5;
-            object-fit: cover;
-        }
-        .blog-info {
-            padding: 8px;
-            text-align: left;
-            padding-bottom: 0px;
-        }
-        .blog-info .description {
-            font-size: 13.5px;
-            color: ##1E1E26;
-            margin: 0;
-            display: -webkit-box;
-            -webkit-box-orient: vertical;
-            -webkit-line-clamp: 2;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        .blog-info .description .rating {
-            font-size: 13px;
-            font-weight: bold;
-            color: #989898;
-        }
-        .fas.fa-star {
-            color: #ff9900;
-            margin-left: 3px;
-            font-size: 10px;
-        }
-        .blog-info .price {
-            font-size: 16px;
-            font-weight: bold;
-            color: #000;
-           margin-top: 5px;
-           margin-bottom :20px;
-        }
-        .alternating-titles {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>p1</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+<style>
+    body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+   }
+   .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    padding: 5px;
+   }
+   .blog {
+    background-color: #fff;
+    border: 0.5px solid #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+   }
+   .blog img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+   }
+   .blog-info {
+    padding: 8px;
+    text-align: left;
+   }
+   .blog-info .description {
+    font-size: 13.5px;
+    color: ##1E1E26;
+    margin: 0;
+    display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+   }
+   .blog-info .description .rating {
+    font-size: 13px;
+    font-weight: bold;
+    color: #989898;
+   }
+   .fas.fa-star {
+    color: #ff9900;
+    margin-left: 3px;
+    font-size: 10px;
+   }
+   .blog-info .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    margin-top: 5px;
+    margin-bottom :20px;
+   }
+   .alternating-titles {
     font-size: 11px;
-            color: #555;
-            position: absolute; 
-            bottom: 0;
-            left: 5px;
-            right: 5px;
-            text-align: left;
-            overflow: hidden;
-            height: 16px;
-            display: flex;
-            align-items: center;
-        }
-
-.alternating-titles .map-icon {
+    color: #555;
+    position: absolute; 
+    bottom: 0;
+    left: 5px;
+    right: 5px;
+    text-align: left;
+    overflow: hidden;
+    height: 16px;
+    display: flex;
+    align-items: center;
+   }
+   .alternating-titles .map-icon {
     margin-right: 5px;
-            color: #4CAF50;
-        }
-       #product-modal {
+    color: #4CAF50;
+   }
+   #product-modal {
     display: none;
     position: fixed;
     bottom: 0;
@@ -96,27 +94,23 @@
     z-index: 1000;
     align-items: flex-end;
     justify-content: center;
-}
-
-#product-modal .modal-content {
+   }
+   #product-modal .modal-content {
     position: relative;
     width: 100%;
     max-width: 500px;
     max-height: 100vh;
     background: #fff;
-    border-radius: 10px;
     overflow-y: auto ;
     animation: slide-up 0.3s ease-out;
-}
-
-#product-modal .modal-content img {
+   }
+   #product-modal .modal-content img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     display: block;
-}
-
-@keyframes slide-up {
+   }
+   @keyframes slide-up {
     from {
         transform: translateY(100%);
         opacity: 0;
@@ -125,8 +119,246 @@
         transform: translateY(0);
         opacity: 1;
     }
+ }
+ #product-modal #slideshow {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+ }
+ #product-modal #slideshow::-webkit-scrollbar
+ { display: none;}
+ #product-modal .slide {
+  min-width: 100%;
+  scroll-snap-align: start;
+ }
+ #product-modal .slide img {
+  width: 100%;
+  height: 350px;
+  object-fit: contain;
+ }
+ #product-modal .pagination-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0;
+ }
+ #product-modal .pagination-dots .dot {
+  width: 7.8px;
+  height: 7.8px;
+  margin-top: 0px;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 0.7px solid #000;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
-        #product-modal .close-btn {
+#product-modal .pagination-dots .dot.active {
+  background-color: #1E659E;
+ }
+ #product-modal .divider1 {
+  border-top: 4px solid #F3F3F3;
+  margin: 0px 0;
+}
+#product-modal .modal-description-container {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+  position: relative;
+  overflow: visible;
+}
+#product-modal .modal-description-container .description {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 450;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+#product-modal #modal-price {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 19px; 
+  font-weight: 700; 
+  color: #333; 
+  padding: 0px;
+  padding-left: 10px;
+  text-align: left; 
+  margin-top: 5px;
+  margin-bottom :-2px;
+}
+#product-modal .rating {
+  padding-left: 10px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+#product-modal .star {
+  width: 17px;
+  height: 17px;
+  fill: #F6B01D;
+  margin-right: 2px; 
+}
+#product-modal .score {
+  color: #777;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 2px;
+  margin-left: 2px;
+}
+#product-modal .image-section {
+  padding: 0 10px;
+  margin-bottom: -11px;
+}
+#product-modal .image-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#product-modal .image-label {
+  font-size: 13px;
+  font-weight: bold;
+}
+#product-modal .image-selection {
+  display: flex;
+  gap: 10px;
+}
+#product-modal .image-option {
+  width: 40px;
+  height: 40px;
+  border-radius :10px;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+#product-modal .image-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#product-modal .image-option:hover {
+  transform: scale(1.1);
+  border-color: #333;
+}
+#product-modal .s-section {
+  max-width: 600px;
+  margin: auto;
+  border-radius:15px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+#product-modal .s-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -px;
+}
+#product-modal .s-label {
+  font-weight: bold;
+  font-size: 13px;
+}
+#product-modal .Guide {
+  font-size: 12px;
+  color: #25629A;
+  cursor: pointer;
+  text-decoration: none; 
+  font-weight: 500;
+  margin-bottom :-5px;
+}
+#product-modal .s-selection {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+}
+#product-modal .s-option {
+  width: 70px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-weight: bold;
+}
+#product-modal .h2 {
+   padding: 0 10px;
+  font-size: 14px;
+  font-weight: 600;
+  
+}
+#product-modal .product-list {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 0 10px;
+  overflow-x: auto;
+  margin-bottom: 70px;
+}
+#product-modal .product-item {
+  width: 140px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  border-radius: 10px;
+}
+#product-modal .product-item img {
+  width: 140px;
+  height: 175px;
+  border-radius: 10px;
+}
+#product-modal .product-item .description {
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  text-align: center; 
+}
+#product-modal .product-item .rating {
+  font-size: 12px;
+  color: #ff9900;
+  text-align: center;
+}
+#product-modal .product-item .price {
+  font-family: 'Helvetica', sans-serif;
+  font-weight: bold;
+  font-size: 15px;
+  color: #000;
+}
+#product-modal .m-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  z-index: 1000;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  background-color: #ffffff;
+  padding: 15px 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+  #product-modal .m-container .main-button {
+  width:330px;
+  height:40px;
+  margin-right: 5px;
+  background-color: #00579C; 
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+ }
+ #product-modal .close-btn {
   position: absolute;
   top: 15px;
   left: 15px;
@@ -141,326 +373,227 @@
   cursor: pointer;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 #product-modal .close-btn:hover {
   background-color: #f0f0f0;
 }
-
 #product-modal .close-btn svg {
   fill: black;
   width: 24px;
   height: 24px;
 }
-     #product-modal #slideshow {
-  display: flex;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
-#product-modal #slideshow::-webkit-scrollbar {
-  display: none;
-}
-
-#product-modal .slide {
-  min-width: 100%;
-  scroll-snap-align: start;
-}
-
-#product-modal .slide img {
-  width: 100%;
-  height: 350px;
-  object-fit: contain;
-}
-
-#product-modal .pagination-dots {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin: 10px 0;
-}
-
-#product-modal .pagination-dots .dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background-color: #fff;
-  border: 1px solid #000;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#product-modal .pagination-dots .dot.active {
-  background-color: #1E659E;
-}
-
-#product-modal .divider {
-  border-top: 5px solid #F3F3F3;
-  margin: 0px 0;
-}
-
-#product-modal .modal-description-container {
-  display: flex;
-  flex-direction: column;
-  padding: 10px;
-  position: relative;
-  overflow: visible;
-}
-
-#product-modal .modal-description-container .description {
-  margin: 0;
-  max-width: 230px;
-  font-size: 17px;
-  font-weight: 600;
-  white-space: normal;
-  word-wrap: break-word;
-  overflow-wrap: break-word;
-}
-
-#product-modal .modal-description-container .rating-container {
-  display: inline;
-  color: #777;
-  font-size: 12px;
-  margin-left: 5px;
-}
-
-#product-modal .modal-description-container .rating-container .fas.fa-star {
-  color: #ff9900;
-  font-size: 13px;
-  margin-right: 3px;
-}
-
-#product-modal .m-icon {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  right: 35px;
-  top: 5px;
-  z-index: 1;
-}
-
-#product-modal .m-icon .map-icon {
-  width: 60px;
-  height: 60px;
-  object-fit: cover;
-}
-
-#product-modal .product-list {
-  display: flex;
-  justify-content: space-around;
-  gap: 20px;
-  padding: 0px 0;
-  overflow-x: auto;
-}
-
-#product-modal .product-item {
-  width: 140px;
-  
-  text-align: center;
-  font-family: Arial, sans-serif;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 0px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-#product-modal .product-item img {
-  width: 140px;
-  height: 175px;
-  border-radius: 10px;
-}
-
-#product-modal .product-item .description {
-  font-size: 14px;
-  color: #333;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 150px;
-  text-align: center; /* لتوسيط النص أفقيًا */
-}
-
-#product-modal .product-item .rating {
-  font-size: 12px;
-  color: #ff9900;
-}
-
-#product-modal .product-item .price {
-  font-weight: bold;
-  font-size: 15px;
-  color: #000;
-}
 #iframe-modal {
-    display: none;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
-    align-items: flex-end;
-    justify-content: center;
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  align-items: flex-end;
+  justify-content: center;
 }
-
 #iframe-modal .modal-content {
-    position: fixed;
-    width: 100%;
-    max-width: 500px;
-    height: 90vh;
-    background: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-      z-index: 1000; 
-    animation: iframe-slide-up 0.3s ease-out;
+  position: fixed;
+  width: 100%;
+  max-width: 500px;
+  height: 100vh;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 1000; 
+  animation: iframe-slide-up 0.3s ease-out;
 }
 #iframe-content {
-    width: 103%; 
-    height: 130vh; 
-    border: none; 
-    border-radius: 0;
-    margin-top: -70px;
-    display: block;
-    margin-left: -3px;
-    margin-right: -3px;
+  width: 103%; 
+  height: 130vh; 
+  border: none; 
+  border-radius: 0;
+  margin-top: -70px;
+  display: block;
+  margin-left: -3px;
+  margin-right: -3px;
 }
 @keyframes iframe-slide-up {
-    from {
+  from {
         transform: translateY(100%);
         opacity: 0;
     }
-    to {
+   to {
         transform: translateY(0);
         opacity: 1;
     }
 }
 #iframe-modal .close-btn {
-    position: absolute;
-top: 15px;
-left: 15px;
-background-color: #ffffff;
-border: none;
-border-radius: 50%;
-width: 40px;
-height: 40px;
-display: flex;
-justify-content: center;
-align-items: center;
-cursor: pointer;
-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-
 #iframe-modal .close-btn:hover {
-    background-color: #e0e0e0;
+  background-color: #e0e0e0;
 }
-
 #iframe-modal .close-btn svg {
-    fill: black ;
-    width: 20px;
-    height: 20px;
+  fill: black ;
+  width: 20px;
+  height: 20px;
 }
-    </style>
+</style>
 </head>
 <body>
-    <div class="container" id="products-container"></div>
-
-    <div class="modal" id="product-modal">
-        <div class="modal-content">
-            <button class="close-btn" id="close-modal">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <path fill="none" d="M0 0h24v24H0z" />
-                    <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
-                </svg>
-            </button>
-            <div id="slideshow"></div>
-            <div id="pagination-dots" class="pagination-dots"></div>
-            <div class="divider"></div>
-            <div class="modal-description-container" id="modal-description-container"></div>
-            <p id="modal-price" style="padding: 10px; font-weight: bold;"></p>
-           
-            <div class="product-list" id="product-list"></div>
-        </div>
+ <div class="container" id="products-container"></div>
+ <div class="modal" id="product-modal">
+ <div class="modal-content">
+ <button class="close-btn" id="close-modal">
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+ <path fill="none" d="M0 0h24v24H0z" />
+ <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" /></svg>
+ </button>
+ <div id="slideshow"></div>
+ <div id="pagination-dots" class="pagination-dots"></div>
+ <div class="divider1"></div>
+ <div class="modal-description-container" id="modal-description-container"></div>
+ <p id="modal-price"></p>
+ <div class="rating">
+  <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+  </svg>
+   <svg class="star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+  </svg>
+   <svg class="star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+  </svg>
+   <svg class="star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+  </svg>
+   <svg class="star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+  </svg>
+<span class="score">4.7</span>
+</div>
+<div class="image-section">
+<div class="image-header">
+<p class="image-label">Couleur:</p>
+</div>
+<div class="image-selection">
+<div class="image-option">
+<img src="https://via.placeholder.com/50x50" alt="Option 1">
+</div>
+<div class="image-option">
+<img src="https://via.placeholder.com/50x50" alt="Option 2">
+</div>
+<div class="image-option">
+<img src="https://via.placeholder.com/50x50" alt="Option 3">
+</div>
+<div class="image-option">
+<img src="https://via.placeholder.com/50x50" alt="Option 4">
     </div>
-<div class="modal" id="iframe-modal">
-  <div class="modal-content">
-    <button class="close-btn" id="close-iframe-modal">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <path fill="none" d="M0 0h24v24H0z" />
-        <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
-      </svg>
-    </button>
-    <!-- حذف الـ src هنا -->
-    <iframe id="iframe-content" frameborder="0"></iframe>
   </div>
 </div>
-     <script>
-        const products = [
+<div class="s-section">
+<div class="s-header">
+<p class="s-label">Size:</p>
+<a href="https://www.example.com" target="_blank" id="size-info-title" class="Guide">Guide des tailles</a>
+</div>
+<div class="s-selection">
+<div class="s-option">S</div>
+<div class="s-option">M</div>
+<div class="s-option">L</div>
+<div class="s-option">XL</div>
+<div class="s-option">XXL</div>
+</div>
+</div>
+<p class="h2">Vous pourriez aussi aimer</p>
+<div class="product-list" id="product-list"></div>
+  </div>
+</div>
+<div class="modal" id="iframe-modal">
+ <div class="modal-content">
+ <button class="close-btn" id="close-iframe-modal">
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+ <path fill="none" d="M0 0h24v24H0z" />
+ <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
+ </svg>
+ </button>
+ <iframe id="iframe-content" frameborder="0"></iframe>
+  </div>
+</div>
+ <script>
+ const products = [
             {
-                   images: [
-                    "../image/P/images (12) (22).jpeg",
+               images: [
+                 "../image/P/images (12) (22).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (25).jpeg",
                 ],
-                description: "Comfortable and lightweight running shoes.",
-                price: "46.00 TND",
-                rating: 4.5
+               description: "PREMIA - t-shirt légères et respirantes pour homme.",
+               price: "46.00 TND",
+               rating: 4.5
             },
             {
-                images: [
+               images: [
                     "../image/P/images (12) (21).jpeg",
                     "../image/P/images (12) (20).jpeg",
                    "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (25).jpeg"
                 ],
-                description: "Comfortable and lightweight running shoes.",
-                price: "46.00 TND",
-                rating: 4.5
+               description: "PREMIA - t-shirt légères et respirantes pour homme.",
+               price: "46.00 TND",
+               rating: 4.5
             },
             {
-                images: [
+               images: [
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (22).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (21).jpeg"
                 ],
-                description: "Comfortable and lightweight running shoes.",
-                price: "46.00 TND",
-                rating: 4.5
+               description: "Comfortable and lightweight running shoes.",
+               price: "46.00 TND",
+               rating: 4.5
             },
             {
-                images: [
-                    "../image/P/images (12) (25).jpeg",
+               images: [
+                     "../image/P/images (12) (25).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (21).jpeg"
                 ],
-                description: "Comfortable and lightweight running shoes.",
-                price: "46.00 TND",
-                rating: 4.5
+               description: "Running shoes",
+               price: "46.00 TND",
+               rating: 4.5
             },
             {
-                images: [
-                    "/T2-main/image/products/images (12) (25).jpeg",
+               images: [
+                    "/T2-main/image/products /images (12) (22).jpeg",
+                     "/T2-main/image/products /images (12) (25).jpeg",
+                    "/T2-main/image/products /images (12) (25).jpeg",
+                    "/T2-main/image/products/images (12) (20).jpeg"
+                ],
+               description: "Running shoes",
+               price: "46.00 TND",
+               rating: 4.5
+            },
+            {
+               images: [
+                    "/T2-main/image/products /images (12) (20).jpeg",
                     "/T2-main/image/products/images (12) (22).jpeg",
                     "/T2-main/image/products/images (12) (20).jpeg"
                 ],
-                description: "Comfortable and lightweight running shoes.",
-                price: "46.00 TND",
-                rating: 4.5
-            },
-            {
-                images: [
-                    "/T2-main/image/products/images (12) (22).jpeg",
-                    "/T2-main/image/products/images (12) (21).jpeg",
-                    "/T2-main/image/products/images (12) (21).jpeg"
-                ],
-                description: "Stylish and convenient slip-on design.",
-                price: "32.00 TND",
-                rating: 4.8
+               description: "Comfortable and lightweight running shoes.",
+               price: "46.00 TND",
+               rating: 4.5
             }
         ];
   const container = document.getElementById('products-container');
@@ -482,179 +615,162 @@ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   // تكرار المنتجات وإضافة الأحداث
   products.forEach((product, index) => {
-    const blog = document.createElement('div');
-    blog.classList.add('blog');
-    blog.innerHTML = `
-            <img src="${product.images[0]}" alt="Product ${index + 1}" loading="lazy">
-            <div class="blog-info">
-                <p class="description">${product.description} <i class="fas fa-star"></i> <span class="rating">${product.rating}</span></p>
-                <p class="price">${product.price}</p>
-                <div class="alternating-titles">
-                    <i class="fas fa-map-marker-alt map-icon"></i>
-                    <span style="cursor: pointer;">Adresse de la boutique</span>
-                </div>
-            </div>
-        `;
+  const blog = document.createElement('div');
+  blog.classList.add('blog');
+  blog.innerHTML = `
+  <img src="${product.images[0]}" alt="Product ${index + 1}" loading="lazy">
+   <div class="blog-info">
+   <p class="description">${product.description} <i class="fas fa-star"></i> <span class="rating">${product.rating}</span></p>
+   <p class="price">${product.price}</p>
+   <div class="alternating-titles">
+   <i class="fas fa-map-marker-alt map-icon"></i>
+   <span style="cursor: pointer;">Adresse de la boutique</span>
+     </div>
+   </div>
+   `;
 
-    // إضافة أحداث للنقر
-    blog.querySelector('.alternating-titles').addEventListener('click', (event) => {
-      event.stopPropagation(); // منع الحدث من الانتشار إلى العناصر الأب
-      openIframeModal();
-    });
-
-    blog.addEventListener('click', () => {
+     // إضافة أحداث للنقر
+  blog.addEventListener('click', () => {
       highlightCurrentBlog(blog);
       displayModal(product);
-    });
-
-    container.appendChild(blog);
-  });
-
-
+   });
+  blog.querySelector('.alternating-titles').addEventListener('click', (event) => {
+      event.stopPropagation(); // منع الحدث من الانتشار إلى العناصر الأب
+   openIframeModal();
+   });
+  container.appendChild(blog);
+   });
+   
   // وظيفة لتحديث محتوى النافذة المنبثقة
   function updateModalContent(product) {
   modalDescriptionContainer.innerHTML = `
-        <p class="description">
-            ${product.description}
-            <span class="rating-container">
-                <i class="fas fa-star"></i>
-                ${product.rating}
-            </span>
-        </p>
-        <div class="m-icon">
-            <img src="../image/P.gif" alt="map-icon" class="map-icon">
-        </div>
-    `;
-
+  <p class="description">
+   ${product.description}</p>
+  <div class="m-container">
+  <button class="main-button">Adresse de la boutique</button>
+    </div>
+   </div>
+ </div>
+ `;
   // إضافة مستمع حدث للنقر لفتح نافذة iframe المنبثقة
-  modalDescriptionContainer.querySelector('.m-icon').addEventListener('click', (event) => {
-    event.stopPropagation(); // منع انتشار الحدث
-    openIframeModal(); // استدعاء وظيفة فتح النافذة المنبثقة للـ iframe
+  modalDescriptionContainer.querySelector('.main-button').addEventListener('click', (event) => {
+  event.stopPropagation();
+  openIframeModal();
   });
-
   modalPrice.textContent = product.price;
   updateProductList(product);
 }
-
   // وظيفة لتحديث قائمة المنتجات في النافذة المنبثقة
-  function updateProductList(currentProduct) {
+  function updateProductList(currentProduct)
+  {
   const sortedProducts = [currentProduct, ...products.filter(prod => prod !== currentProduct)];
   productList.innerHTML = ''; // مسح المحتوى القديم
-
   sortedProducts.forEach((prod) => {
-    const productItem = document.createElement('div');
-    productItem.classList.add('product-item');
-    productItem.innerHTML = `
-                <img src="${prod.images[0]}" alt="Product image" loading="lazy">
-                <p class="description">${prod.description}</p>
-                <p class="rating"><i class="fas fa-star"></i> ${prod.rating}</p>
-                <p class="price">${prod.price}</p>
-            `;
-    productItem.addEventListener('click', () => {
-      modal.style.display = 'none';
+  const productItem = document.createElement('div');
+  productItem.classList.add('product-item');
+  productItem.innerHTML = `
+  <img src="${prod.images[0]}" alt="Product image" loading="lazy">
+  <p class="description">${prod.description}</p>
+  <p class="rating"><i class="fas fa-star"></i> ${prod.rating}</p>
+  <p class="price">${prod.price}</p>`;
+  productItem.addEventListener('click', () =>
+  {
+  modal.style.display = 'none';
       displayModal(prod);
-    });
-    productList.appendChild(productItem);
   });
-
-  // التمرير إلى أول العنصر في القائمة الأفقية
+  productList.appendChild(productItem);
+  });
   setTimeout(() => {
-    productList.scrollLeft = 0; // إرجاع التمرير إلى البداية
+    productList.scrollLeft = 0; 
   }, 0);
 }
-
   // وظيفة لتحديث عرض الشرائح
   function updateSlideshow(images) {
-    slideshow.innerHTML = '';
-    paginationDots.innerHTML = '';
-    images.forEach((image, index) => {
-      const slide = document.createElement('div');
-      slide.classList.add('slide');
-      slide.innerHTML = `<img src="${image}" alt="Slide ${index + 1}" loading="lazy">`;
-      slideshow.appendChild(slide);
-
-      const dot = document.createElement('div');
-      dot.classList.add('dot');
-      if (index === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => {
-        slideshow.scrollTo({ left: index * slideshow.offsetWidth, behavior: 'smooth' });
-      });
-      paginationDots.appendChild(dot);
-    });
-setTimeout(() => {
-    slideshow.scrollLeft = 0;
+   slideshow.innerHTML = '';
+   paginationDots.innerHTML = '';
+   images.forEach((image, index) => {
+  const slide = document.createElement('div');
+   slide.classList.add('slide');
+   slide.innerHTML = `<img src="${image}" alt="Slide ${index + 1}" loading="lazy">`;
+   slideshow.appendChild(slide);
+  const dot = document.createElement('div');
+   dot.classList.add('dot');
+   if (index === 0) dot.classList.add('active');
+   dot.addEventListener('click', () => {
+   slideshow.scrollTo({ left: index * 
+   slideshow.offsetWidth, behavior: 'smooth'
+   });
+   });
+   paginationDots.appendChild(dot);
+   });
+   setTimeout(() => {
+   slideshow.scrollLeft = 0;
   }, 0);
-    
-    slideshow.addEventListener('scroll', () => {
-      const activeIndex = Math.round(slideshow.scrollLeft / slideshow.offsetWidth);
-      document.querySelectorAll('.pagination-dots .dot').forEach((dot, index) => {
-        dot.classList.toggle('active', index === activeIndex);
+   slideshow.addEventListener('scroll', () =>
+   {
+  const activeIndex = Math.round(slideshow.scrollLeft / slideshow.offsetWidth);
+  document.querySelectorAll('.pagination-dots .dot').forEach((dot, index) => {
+   dot.classList.toggle('active', index === activeIndex);
       });
     });
   }
-
   // وظيفة لتظليل العنصر الحالي
   function highlightCurrentBlog(blog) {
     if (currentOpenBlog && currentOpenBlog !== blog) 
     currentOpenBlog = blog;
-    
   }
-// وظيفة لعرض نافذة المنتج
-function displayModal(product) {
+ // وظيفة لعرض نافذة المنتج
+  function displayModal(product) {
   currentModalProduct = product;
   updateSlideshow(product.images);
   updateModalContent(product);
   modal.style.display = 'flex';
-  document.body.style.overflow = 'hidden'; // إيقاف التمرير عند فتح نافذة المنتج
 
+  // إعادة التمرير لأعلى العنصر .modal-content
+  const modalContent = modal.querySelector('.modal-content');
+  if (modalContent) {
+    modalContent.scrollTop = 0;
+  }
+
+  document.body.style.overflow = 'hidden';
   if (isProductFromHomepage) {
     history.pushState({ productModalOpen: true }, '', location.pathname + "#product-modal");
     isProductFromHomepage = false;
   }
 }
-
-// وظيفة لفتح النافذة المنبثقة للـ iframe
-function openIframeModal() {
+  function openIframeModal() {
   iframeModal.style.display = 'flex';
-  iframeContent.src = "https://www.google.com/maps/d/u/0/embed?mid=1Cr7b5xePZ3C0B747aW61R30mDt2c-DY&ehbc=2E312F"; // تعيين الرابط
-  document.body.style.overflow = 'hidden'; // إيقاف التمرير عند فتح نافذة iframe
-  modal.style.overflow = 'hidden'; // إيقاف التمرير في نافذة المنتج
-
-  history.pushState({ iframeModalOpen: true }, '', location.pathname + "#iframeModal"); // إضافة حالة مخصصة للنافذة المنبثقة الخاصة بالـ iframe
+  iframeContent.src = "https://www.google.com/maps/d/u/0/embed?mid=1Cr7b5xePZ3C0B747aW61R30mDt2c-DY&ehbc=2E312F";
+  document.body.style.overflow = 'hidden';
+  modal.style.overflow = 'hidden';
+  history.pushState({ iframeModalOpen: true }, '', location.pathname + "#iframeModal");
 }
-
-// وظيفة لإغلاق النوافذ المنبثقة
-function closeAllModals() {
+  function closeAllModals() {
   if (iframeModal.style.display === 'flex') {
     iframeModal.style.display = 'none';
-    iframeContent.src = ""; // إزالة المصدر لتجنب التحميل المستمر
-    history.replaceState(null, '', location.pathname); // إعادة تعيين السجل عند غلق نافذة iframe
-    modal.style.overflow = 'auto'; // إعادة التمرير في نافذة المنتج
+    iframeContent.src = "";
+    history.replaceState(null, '', location.pathname);
+    modal.style.overflow = 'auto';
   }
-
   if (modal.style.display === 'flex') {
     modal.style.display = 'none';
     isProductFromHomepage = true;
-    history.replaceState(null, '', location.pathname); // إعادة تعيين السجل عند غلق نافذة المنتج
-    document.body.style.overflow = 'auto'; // إعادة التمرير في الصفحة الرئيسية
+    history.replaceState(null, '', location.pathname);
+    document.body.style.overflow = 'auto';
   }
-
-  // إذا لم يكن هناك أي نافذة مفتوحة، إعادة التمرير إلى الوضع الافتراضي
   if (iframeModal.style.display === 'none' && modal.style.display === 'none') {
     document.body.style.overflow = 'auto';
   }
 }
-
-// التعامل مع زر "العودة" لإغلاق النوافذ المنبثقة
 window.addEventListener('popstate', (event) => {
   if (event.state && event.state.iframeModalOpen) {
     iframeModal.style.display = 'flex';
     modal.style.display = 'none';
-    document.body.style.overflow = 'hidden'; // ضمان إيقاف التمرير
+    document.body.style.overflow = 'hidden'; 
   } else if (event.state && event.state.productModalOpen) {
     modal.style.display = 'flex';
     iframeModal.style.display = 'none';
-    document.body.style.overflow = 'hidden'; // ضمان إيقاف التمرير
+    document.body.style.overflow = 'hidden';
   } else {
     closeAllModals();
   }
