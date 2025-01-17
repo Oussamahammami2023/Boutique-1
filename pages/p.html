@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>p1</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 <style>
     body {
     font-family: Arial, sans-serif;
@@ -17,10 +16,98 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 5px;
     padding: 5px;
+    margin-top: 94px;
    }
+      .search-container {
+      display: flex;
+      position: fixed;
+      top:0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      align-items: center;
+      background-color: #fff;
+      border-radius: 25px;
+      padding: 7px 15px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .search-container input {
+      border: none;
+      outline: none;
+      padding: 10px;
+      font-size: 16px;
+      width: 250px;
+      border-radius: 20px;
+      margin-right: 50px;
+      box-sizing: border-box;
+    }
+
+    .search-container button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      font-size: 16px;
+      border-radius: 20px;
+      cursor: pointer;
+    }
+
+    .search-container button:hover {
+      background-color: #45a049;
+    }
+  .nav a {
+    text-decoration: none;
+    color: inherit;
+}
+   .nav {
+    display: flex;
+    overflow-x: auto; 
+    white-space: nowrap;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 0px 0;
+    position: fixed;
+    top:50px;
+    left: 0;
+    right: 0;
+    z-index: 9;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.nav::-webkit-scrollbar {
+    display: none;
+}
+    .nav div {
+        font-size: 14px;
+        color: #555;
+        cursor: pointer;
+        padding: 13px 10px;
+    }
+  .nav div.active {
+    font-weight: bold;
+    padding-bottom: 5px;
+    color: transparent;
+    background: linear-gradient(90deg, #6ec1ff, #ab47bc);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+.nav div.active::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #6ec1ff, #ab47bc);
+    border-radius: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
    .blog {
     background-color: #fff;
-    border: 0.5px solid #ddd;
+    border: 1px solid #ddd;
     border-radius: 3px;
     overflow: hidden;
     text-decoration: none;
@@ -29,11 +116,20 @@
     display: flex;
     flex-direction: column;
     height: 100%;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px; 
    }
    .blog img {
     width: 100%;
     aspect-ratio: 4 / 5;
-    object-fit: cover;
+    object-fit: contain;
+    display: block; 
+    margin: 0; 
+    padding: 0; 
+    border-bottom: 1px solid #ddd;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
    }
    .blog-info {
     padding: 8px;
@@ -49,27 +145,36 @@
     overflow: hidden;
     text-overflow: ellipsis;
    }
-   .blog-info .description .rating {
-    font-size: 13px;
-    font-weight: bold;
-    color: #989898;
-   }
-   .fas.fa-star {
-    color: #ff9900;
-    margin-left: 3px;
-    font-size: 10px;
-   }
    .blog-info .price {
     font-size: 16px;
     font-weight: bold;
     color: #000;
-    margin-top: 5px;
-    margin-bottom :20px;
+    margin-top: 10px;
+    margin-bottom :10px;
    }
-   .alternating-titles {
-    font-size: 11px;
+  .blog-info .ratting {
+   padding-left: 0px;
+   margin-top: 0px;
+   display: flex;
+   align-items: center;
+  }
+  .blog-info .ratting .sr {
+   width: 12px;
+   height: 12px;
+   fill: #FFC50A;
+   margin-right: 2px; 
+   }
+  .blog-info .score {
+   color: #777;
+   font-weight: 500;
+   font-size: 10px;
+   margin-top: 2px;
+   margin-left: 2px;
+  }
+.alternating-titles {
+  font-size: 12px;
     color: #555;
-    position: absolute; 
+    position: absolute;
     bottom: 0;
     left: 5px;
     right: 5px;
@@ -78,11 +183,123 @@
     height: 16px;
     display: flex;
     align-items: center;
-   }
-   .alternating-titles .map-icon {
-    margin-right: 5px;
-    color: #4CAF50;
-   }
+}
+
+.mp {
+  display: block;
+  margin-right: 5px;
+  color: #4CAF50;
+  font-size: 20px;
+  position: absolute; /* لجعلها تتداخل مع t1 */
+  opacity: 0;
+  animation: alternateFadeMP 6s infinite; /* تغيير الأنيمشن لتتزامن مع t1 */
+}
+
+/* أنيمشن منفصل لـ mp */
+@keyframes alternateFadeMP {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  10%, 40% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.B1 {
+  display: block;
+  left:0;
+  width:30px;
+  height:30px;
+  margin-right: 5px;
+  border-radius:50px;
+  color: #4CAF50;
+  position: absolute; /* لجعلها تتداخل مع t1 */
+  opacity: 0;
+  animation: alternateFadeMP 6s infinite; /* تغيير الأنيمشن لتتزامن مع t1 */
+  animation-delay: 2.5s; /* Start after the first title */
+}
+.B1 .img {
+  border-radius:50px;
+}
+@keyframes alternateFadeB1 {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  10%, 60% { /* جعل t2 يظهر لفترة أطول */
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.t1, .t2 {
+  position: absolute;
+  margin-left: 17px;
+  opacity: 0;
+}
+
+.t1 {
+  animation: alternateFadeT1 6s infinite; /* أنيمشن خاص بـ t1 */
+  animation-delay: 0s; /* Start immediately */
+}
+
+.t2 {
+  animation: alternateFadeT2 6s infinite; /* أنيمشن خاص بـ t2 */
+  animation-delay: 2.5s; /* Start after the first title */
+}
+
+/* Animations for t1 */
+@keyframes alternateFadeT1 {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  10%, 40% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Animations for t2 */
+@keyframes alternateFadeT2 {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  10%, 60% { /* جعل t2 يظهر لفترة أطول */
+    opacity: 1;
+    transform: translateY(0);
+  }
+  70% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 0;
+  }
+}
    #product-modal {
     display: none;
     position: fixed;
@@ -120,48 +337,22 @@
         opacity: 1;
     }
  }
- #product-modal #slideshow {
-  display: flex;
-  overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
- }
- #product-modal #slideshow::-webkit-scrollbar
- { display: none;}
- #product-modal .slide {
-  min-width: 100%;
-  scroll-snap-align: start;
- }
- #product-modal .slide img {
-  width: 100%;
-  height: 350px;
-  object-fit: contain;
- }
- #product-modal .pagination-dots {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin: 14px 0;
- }
- #product-modal .pagination-dots .dot {
-  width: 7.8px;
-  height: 7.8px;
-  margin-top: 0px;
-  border-radius: 50%;
-  background-color: #fff;
-  border: 0.7px solid #000;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+#product-modal #slideshow {
+  display: flex; /* ترتيب الشرائح أفقيًا */
+  overflow-x: scroll; /* تمكين التمرير الأفقي */
+  scroll-snap-type: x mandatory; /* التمرير يلتقط الشرائح بشكل دقيق */
+  scroll-behavior: smooth; /* تمرير سلس */
 }
-#product-modal .pagination-dots .dot.active {
-  background-color: #1E659E;
- }
- #product-modal .divider1 {
-  border-top: 4px solid #F3F3F3;
-  margin: 0px 0;
+
+#product-modal .slide {
+  min-width: 100%; /* كل شريحة تأخذ عرض الحاوية بالكامل */
+  scroll-snap-align: start; /* التمرير يلتقط بداية الشريحة */
+}
+
+#product-modal .slide img {
+  width: 100%; /* تأخذ الصورة عرض الشريحة بالكامل */
+  height: 350px; /* تثبيت ارتفاع الصورة */
+  object-fit: contain; /* الحفاظ على أبعاد الصورة بدون تشويه */
 }
 #product-modal .modal-description-container {
   display: flex;
@@ -178,30 +369,29 @@
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
-#product-modal #modal-price {
+#product-modal .price {
   font-family: 'Helvetica', sans-serif;
   font-size: 19px; 
   font-weight: 700; 
   color: #333; 
   padding: 0px;
-  padding-left: 10px;
   text-align: left; 
-  margin-top: 5px;
-  margin-bottom :-2px;
-}
-#product-modal .rating {
-  padding-left: 10px;
   margin-top: 10px;
+  margin-bottom: 2px;
+}
+#product-modal .ratting {
+  margin-top: 12px;
+  margin-bottom: -10px;
   display: flex;
   align-items: center;
 }
-#product-modal .star {
-  width: 17px;
-  height: 17px;
+#product-modal .ratting .sr {
+  width: 16px;
+  height: 16px;
   fill: #F6B01D;
   margin-right: 2px; 
 }
-#product-modal .score {
+#product-modal .ratting .score {
   color: #777;
   font-weight: 500;
   font-size: 12px;
@@ -284,8 +474,10 @@
 }
 #product-modal .h2 {
    padding: 0 10px;
-  font-size: 14px;
-  font-weight: 600;
+   margin-top: 15px;
+   margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 650;
   
 }
 #product-modal .product-list {
@@ -294,22 +486,31 @@
   gap: 20px;
   padding: 0 10px;
   overflow-x: auto;
-  margin-bottom: 70px;
+  margin-bottom: 80px;
 }
 #product-modal .product-item {
-  width: 140px;
+  width: 180px;
+  height:280px;
   text-align: center;
   font-family: Arial, sans-serif;
   background-color: #fff;
   border-radius: 10px;
+  border: 1px solid #ddd; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 #product-modal .product-item img {
-  width: 140px;
+  width: 180px;
   height: 175px;
   border-radius: 10px;
+  border-bottom: 1px solid #ddd;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 #product-modal .product-item .description {
   font-size: 14px;
+  margin-left:10px;
+  margin-top: 11px;
   color: #333;
   white-space: nowrap;
   overflow: hidden;
@@ -317,15 +518,31 @@
   max-width: 150px;
   text-align: center; 
 }
-#product-modal .product-item .rating {
+#product-modal .ratting2 {
+  margin-top: 2px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#product-modal .ratting2 .sr2 {
+  width: 14px;
+  height: 14px;
+  fill: #F6B01D;
+  margin-right: 2px; 
+}
+#product-modal .ratting2 .score2 {
+  color: #777;
+  font-weight: 500;
   font-size: 12px;
-  color: #ff9900;
-  text-align: center;
+  margin-top: 2px;
+  margin-left: 2px;
 }
 #product-modal .product-item .price {
   font-family: 'Helvetica', sans-serif;
   font-weight: bold;
-  font-size: 15px;
+  text-align: center;
+  font-size: 16px;
   color: #000;
 }
 #product-modal .m-container {
@@ -397,7 +614,7 @@
   position: fixed;
   width: 100%;
   max-width: 500px;
-  height: 96vh;
+  height: 100vh;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -450,6 +667,20 @@
 </style>
 </head>
 <body>
+   <div class="search-container">
+    <input type="text" placeholder="Recherche..." id="search-input">
+    <button onclick="search()">search</button>
+  </div>
+<!-- Navigation -->
+<div class="nav">
+<div class="active"><a href="#">Vestes</a></div>
+ <div><a href="/T2-main/index2.html">Chaussures</a></div>
+  <div><a href="/T2-main/index3.html">pantalon</a></div>
+  <div><a href="/T2-main/index4.html">Médecins</a></div>
+  <div><a href="/T2-main/index5.html">Éducation</a></div>
+    <div><a href="/T2-main/index6.html">Immobilier</a></div>
+  <div><a href="//T2-main/index7.html">Services de mariage</a></div>
+</div>
  <div class="container" id="products-container"></div>
  <div class="modal" id="product-modal">
  <div class="modal-content">
@@ -460,27 +691,8 @@
  </button>
  <div id="slideshow"></div>
  <div id="pagination-dots" class="pagination-dots"></div>
- <div class="divider1"></div>
  <div class="modal-description-container" id="modal-description-container"></div>
  <p id="modal-price"></p>
- <div class="rating">
-  <svg class="star" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
-  </svg>
-   <svg class="star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
-  </svg>
-   <svg class="star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
-  </svg>
-   <svg class="star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
-  </svg>
-   <svg class="star filled" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-    <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
-  </svg>
-<span class="score">4.7</span>
-</div>
 <div class="image-section">
 <div class="image-header">
 <p class="image-label">Couleur:</p>
@@ -532,70 +744,70 @@
  const products = [
             {
                images: [
-                 "../image/P/images (12) (22).jpeg",
+                    "../image/P/images (12) (22).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (25).jpeg",
                 ],
-               description: "PREMIA - t-shirt légères et respirantes pour homme.",
-               price: "46.00 TND",
-               rating: 4.5
+                description: "Comfortable and lightweight running shoes.",
+                price: "46.00 TND",
+                rating: 4.5
             },
             {
-               images: [
+                images: [
                     "../image/P/images (12) (21).jpeg",
                     "../image/P/images (12) (20).jpeg",
                    "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (25).jpeg"
                 ],
-               description: "PREMIA - t-shirt légères et respirantes pour homme.",
-               price: "46.00 TND",
-               rating: 4.5
+                description: "Comfortable and lightweight running shoes.",
+                price: "46.00 TND",
+                rating: 4.5
             },
             {
-               images: [
+                images: [
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (22).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (21).jpeg"
                 ],
-               description: "Comfortable and lightweight running shoes.",
-               price: "46.00 TND",
-               rating: 4.5
+                description: "Comfortable and lightweight running shoes.",
+                price: "46.00 TND",
+                rating: 4.5
             },
             {
-               images: [
-                     "../image/P/images (12) (25).jpeg",
+                images: [
+                    "../image/P/images (12) (25).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (20).jpeg",
                     "../image/P/images (12) (21).jpeg"
                 ],
-               description: "Running shoes",
-               price: "46.00 TND",
-               rating: 4.5
+                description: "Comfortable and lightweight running shoes.",
+                price: "46.00 TND",
+                rating: 4.5
             },
             {
-               images: [
-                    "/T2-main/image/products /images (12) (22).jpeg",
-                     "/T2-main/image/products /images (12) (25).jpeg",
-                    "/T2-main/image/products /images (12) (25).jpeg",
-                    "/T2-main/image/products/images (12) (20).jpeg"
-                ],
-               description: "Running shoes",
-               price: "46.00 TND",
-               rating: 4.5
-            },
-            {
-               images: [
-                    "/T2-main/image/products /images (12) (20).jpeg",
+                images: [
+                    "/T2-main/image/products/images (12) (25).jpeg",
                     "/T2-main/image/products/images (12) (22).jpeg",
                     "/T2-main/image/products/images (12) (20).jpeg"
                 ],
-               description: "Comfortable and lightweight running shoes.",
-               price: "46.00 TND",
-               rating: 4.5
+                description: "Comfortable and lightweight running shoes.",
+                price: "46.00 TND",
+                rating: 4.5
+            },
+            {
+                images: [
+                    "/T2-main/image/products/images (12) (22).jpeg",
+                    "/T2-main/image/products/images (12) (21).jpeg",
+                    "/T2-main/image/products/images (12) (21).jpeg"
+                ],
+                description: "Stylish and convenient slip-on design.",
+                price: "32.00 TND",
+                rating: 4.8
             }
         ];
+  const searchInput = document.getElementById('search-input');
   const container = document.getElementById('products-container');
   const modal = document.getElementById('product-modal');
   const slideshow = document.getElementById('slideshow');
@@ -613,39 +825,100 @@
   let currentOpenBlog = null;
   let isProductFromHomepage = true;
 
-  // تكرار المنتجات وإضافة الأحداث
-  products.forEach((product, index) => {
-  const blog = document.createElement('div');
-  blog.classList.add('blog');
-  blog.innerHTML = `
-  <img src="${product.images[0]}" alt="Product ${index + 1}" loading="lazy">
-   <div class="blog-info">
-   <p class="description">${product.description} <i class="fas fa-star"></i> <span class="rating">${product.rating}</span></p>
-   <p class="price">${product.price}</p>
-   <div class="alternating-titles">
-   <i class="fas fa-map-marker-alt map-icon"></i>
-   <span style="cursor: pointer;">Adresse de la boutique</span>
-     </div>
-   </div>
-   `;
+window.onload = function() {
+  displayProducts(products); // عرض جميع المنتجات عند تحميل الصفحة
+};
 
-     // إضافة أحداث للنقر
-  blog.addEventListener('click', () => {
+// دالة البحث
+function search() {
+  const query = searchInput.value.toLowerCase();
+  const filteredProducts = products.filter(product =>
+    product.description.toLowerCase().includes(query)
+  );
+  displayProducts(filteredProducts); // عرض المنتجات المفلترة
+}
+
+// دالة لعرض المنتجات
+function displayProducts(productsToDisplay) {
+  container.innerHTML = ''; // مسح المنتجات السابقة قبل عرض المفلترة
+
+  // تكرار المنتجات وإضافة الأحداث
+  productsToDisplay.forEach((product, index) => {
+    const blog = document.createElement('div');
+    blog.classList.add('blog');
+    blog.innerHTML = `
+      <img src="${product.images[0]}" alt="Product ${index + 1}" loading="lazy">
+      <div class="blog-info">
+         <p class="description">
+                ${product.description}
+            </p>
+             <p class="price">${product.price}</p>
+            <p class="ratting">
+            <svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+                <span class="score">${product.ratting}</span></p>
+           <div class="alternating-titles">
+  <svg class="mp" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+    <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"></path>
+  </svg>
+  <span class="t1">Adresse de la boutique</span>
+    <img class="B1" src="/img boutiques/images (12) (26).jpeg" alt="Option 4">
+  <span class="t2">Boutique 1</span>
+</div>
+</div>
+    `;
+
+    // إضافة أحداث للنقر
+    blog.addEventListener('click', () => {
       highlightCurrentBlog(blog);
       displayModal(product);
-   });
-  blog.querySelector('.alternating-titles').addEventListener('click', (event) => {
+    });
+
+    blog.querySelector('.alternating-titles').addEventListener('click', (event) => {
       event.stopPropagation(); // منع الحدث من الانتشار إلى العناصر الأب
-   openIframeModal();
-   });
-  container.appendChild(blog);
-   });
+      openIframeModal();
+    });
+
+    container.appendChild(blog);
+  });
+}
    
   // وظيفة لتحديث محتوى النافذة المنبثقة
   function updateModalContent(product) {
   modalDescriptionContainer.innerHTML = `
   <p class="description">
    ${product.description}</p>
+    <p class="price">${product.price}</p>
+   <p class="ratting">
+            <svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+                <span class="score">${product.ratting}</span></p>
   <div class="m-container">
   <button class="main-button">Adresse de la boutique</button>
     </div>
@@ -657,8 +930,49 @@
   event.stopPropagation();
   openIframeModal();
   });
-  modalPrice.textContent = product.price;
   updateProductList(product);
+}
+
+  // وظيفة لتحديث عرض الشرائح
+  function updateSlideshow(images) {
+  slideshow.innerHTML = '';
+
+  images.forEach((image, index) => {
+    const slide = document.createElement('div');
+    slide.classList.add('slide');
+    slide.innerHTML = `<img src="${image}" alt="Slide ${index + 1}" loading="lazy">`;
+    slideshow.appendChild(slide);
+  });
+
+  let currentIndex = 0;
+  let autoScrollInterval = setInterval(scrollToNextSlide, 1000);
+
+  function scrollToNextSlide() {
+    currentIndex = (currentIndex + 1) % images.length;
+    slideshow.scrollLeft = slideshow.offsetWidth * currentIndex;
+  }
+
+  function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+  }
+
+  // Stop auto-scroll on manual scroll
+  slideshow.addEventListener('scroll', () => {
+    stopAutoScroll();
+  });
+
+  // Optional: Restart auto-scroll after a period of inactivity
+  let manualScrollTimeout;
+  slideshow.addEventListener('scroll', () => {
+    clearTimeout(manualScrollTimeout);
+    manualScrollTimeout = setTimeout(() => {
+      autoScrollInterval = setInterval(scrollToNextSlide, 1000);
+    }, 7000); // 5 seconds of inactivity
+  });
+
+  setTimeout(() => {
+    slideshow.scrollLeft = 0;
+  }, 0);
 }
   // وظيفة لتحديث قائمة المنتجات في النافذة المنبثقة
   function updateProductList(currentProduct)
@@ -671,7 +985,23 @@
   productItem.innerHTML = `
   <img src="${prod.images[0]}" alt="Product image" loading="lazy">
   <p class="description">${prod.description}</p>
-  <p class="rating"><i class="fas fa-star"></i> ${prod.rating}</p>
+  <p class="ratting2">
+            <svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+                <span class="score2">${prod.ratting}</span></p>
   <p class="price">${prod.price}</p>`;
   productItem.addEventListener('click', () =>
   {
@@ -684,36 +1014,6 @@
     productList.scrollLeft = 0; 
   }, 0);
 }
-  // وظيفة لتحديث عرض الشرائح
-  function updateSlideshow(images) {
-   slideshow.innerHTML = '';
-   paginationDots.innerHTML = '';
-   images.forEach((image, index) => {
-  const slide = document.createElement('div');
-   slide.classList.add('slide');
-   slide.innerHTML = `<img src="${image}" alt="Slide ${index + 1}" loading="lazy">`;
-   slideshow.appendChild(slide);
-  const dot = document.createElement('div');
-   dot.classList.add('dot');
-   if (index === 0) dot.classList.add('active');
-   dot.addEventListener('click', () => {
-   slideshow.scrollTo({ left: index * 
-   slideshow.offsetWidth, behavior: 'smooth'
-   });
-   });
-   paginationDots.appendChild(dot);
-   });
-   setTimeout(() => {
-   slideshow.scrollLeft = 0;
-  }, 0);
-   slideshow.addEventListener('scroll', () =>
-   {
-  const activeIndex = Math.round(slideshow.scrollLeft / slideshow.offsetWidth);
-  document.querySelectorAll('.pagination-dots .dot').forEach((dot, index) => {
-   dot.classList.toggle('active', index === activeIndex);
-      });
-    });
-  }
   // وظيفة لتظليل العنصر الحالي
   function highlightCurrentBlog(blog) {
     if (currentOpenBlog && currentOpenBlog !== blog) 
