@@ -1,186 +1,1570 @@
 <!DOCTYPE html>
-<html lang="ar"> <!-- تغيير اللغة إلى العربية -->
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CesiumJS - Open Source Maps</title>
-  <script src="https://cesium.com/downloads/cesiumjs/releases/1.104/Build/Cesium/Cesium.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
-  <link href="https://cesium.com/downloads/cesiumjs/releases/1.104/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Tajawal', sans-serif; /* تحسين الخط */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant</title>
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="manifest.json">
+    <style>
+  body, html {
+   font-family: 'Montserrat', sans-serif;
+   margin: 0;
+   padding: 0;
+}
+ .divider1 {
+  border-top: 6px solid #6ec1ff;
+  z-index: 1;
+  width:100%;
+  top:0;
+  position: absolute;
+  position: fixed;
+  }
+.logo img {
+  position: absolute;
+  position: fixed;
+  height:40px;
+  width: auto;
+  top:10px;
+  left:15px;
+}
+.contact {
+  position: fixed;
+  top:20px;
+  right:10px;
+}
+.contact img {
+  height:20px;
+  width:20px;
+  margin-left:10px;
+}
+.hero {
+  background: url('/restaurants img/1676524550623.jpeg') no-repeat center center/cover;
+    z-index: 0;
+    background-attachment: fixed;
+    height: 102.5vh; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+.hero-content {
+    z-index: 1;
+    display:flex;
+    position: absolute;
+    text-align: center; 
+    color: white;
+    left:90px;
+    top:180px;
+}
+ .hero-content h1 {
+    font-size: 3.5em;
+    font-weight: 700;
+    margin-bottom: 10px;
+        }
+ .hero-content h1 {
+   animation: fadeInOut 3s ease forwards; 
+}
+           @keyframes fadeInOut {
+    0% {
+        opacity: 0;
+        transform: translateY(-100px); 
     }
-    #cesiumContainer {
-      width: 100%;
-      height: 100vh;
-  background: linear-gradient(to right, #ff7e5f, #feb47b); 
-  filter: brightness(1.1); 
+    30% {
+        opacity: 1;
     }
-    .cesium-viewer-toolbar,
-    .cesium-viewer-animationContainer,
-    .cesium-viewer-timelineContainer,
-    .cesium-viewer .cesium-credit-logoContainer,
-    .cesium-viewer .cesium-credit-textContainer {
-      display: none !important;
+    70% {
+        opacity: 1;
     }
-  </style>
+    100% {
+        opacity: 0;
+        transform: translateY(70px);
+    }
+           }
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.0); 
+}
+     .ouvrir{
+      position: absolute; 
+      height:70px;
+      width:310px;
+      left:40px;
+      transform: perspective(160px) rotateX(36deg) translateY(5px);
+      border-top-right-radius: 50px;
+      border-top-left-radius: 50px;
+      border-bottom-right-radius: 0;
+      border-bottom-left-radius: 0;
+      margin-top: -85px;
+      display: flex; 
+      justify-content: center; 
+      align-items: center; 
+      background-color:#fff;
+    box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.5);
+    transition: opacity 0.5s ease; 
+    }
+    .top {
+      position: relative; 
+      z-index: 2;
+      color: white; 
+      padding: 10px 20px; 
+      border: none; 
+      margin-top:-10px;
+      border-radius: 7px; 
+      cursor: pointer;
+      transition: opacity 0.5s ease; 
+     font-size: 16px;
+     transform: perspective(200px) rotateX(15deg);
+     font-weight: 900;
+     background: linear-gradient(  0deg,
+     rgba(63, 94, 251, 1) 0%,
+     rgba(70, 135, 252, 1) 100% );
+     box-shadow: rgba(63, 94, 251, 0.2) 0px 40px 29px 0px;
+     will-change: transform;
+     transition: all 0.3s;
+     border-bottom: 2px solid rgba(70, 135, 252, 1);
+}
+.slideshow-container-1 {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height:210px;
+  max-width: 600px;
+  margin: auto;
+  overflow: hidden;
+  justify-content: center; 
+  align-items: center; 
+}
+
+.slides-wrapper {
+  display: flex;
+  transition: transform 1s ease;
+  scroll-behavior: smooth;
+}
+
+.slide-1 {
+  min-width: 90%;
+  padding: 2px;
+  gap:10px;
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+}
+.slide-1 a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 300px;
+}
+.slide-1 img {
+  width: 100%;
+  height: 65%;
+  object-fit: content;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.header {
+  z-index: 10;
+  width:100%;
+  margin-top:-22.5px;
+  position: sticky;
+ top:0px;
+}
+ /* تنسيق قسم الشعار */
+.logo2 {
+  display: flex;
+  background-color:#fff;
+  justify-content: space-between; 
+  align-items: center;
+  padding: 5px 10px; 
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  transition: border-radius 0.5s ease;
+  box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.1);
+}
+.logo2.no-radius {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
+ .logo2-span {
+   position: relative;
+  background: linear-gradient(90deg, #6ec1ff, #ab47bc);
+  -webkit-background-clip: text; /* يحدد الخلفية فقط للنص */
+  -webkit-text-fill-color: transparent; /* يجعل النص شفافًا */
+   font-size: 20px;
+   font-weight: 900;
+   top:2px;
+   left:2px;
+ }
+.notification-icon {
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+.notification-icon svg {
+  fill: #000; 
+  width: 26px;
+  height: 26px;
+}
+/* تنسيق قسم البحث */
+.search-container {
+  display: flex;
+  z-index: 10;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  padding: 0px 0;
+  width: 100%;
+  height: 60px;
+  background-color: #fff;
+}
+.placeholders {
+  position: absolute;
+  left: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  font-weight: 500;
+  pointer-events: none; 
+  z-index: 2; 
+  white-space: nowrap;
+}
+.r1 {
+  display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    font-size: 13.5px;
+    left: 30px;
+    z-index: 2;
+    height: 5px;
+    opacity: 0;
+    animation: alternateFadeContainer 6s infinite;
+    width: fit-content; /* الحاوية تتكيف مع المحتوى */
+}
+.r1 {
+    animation: alternateFadeT1 6s infinite;
+    animation-delay: 0s;
+}
+@keyframes alternateFader1 {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    10%, 40% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.r2 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    font-size: 13.5px;
+    left: 30px;
+    height: 5px;
+    opacity: 0;
+    z-index: 2;
+    animation: alternateFadeContainer 6s infinite;
+    animation-delay: 2.5s;
+    width: fit-content; /* الحاوية تتكيف مع المحتوى */
+    white-space: nowrap; /* يمنع التفاف النص */
+}
+@keyframes alternateFadeContainer {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    10%, 57% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    67% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+.search-container input {
+  padding: 11px 20px;
+  position: absolute;
+  font-size: 14px;
+  z-index: 1;
+  font-weight: 500;
+  color: #000;
+  width: 93%;
+  border: 1.3px solid #000;
+  box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.3);
+  border-radius: 20px;
+  margin-top : 10px;
+  margin-bottom :8px;
+  box-sizing: border-box;
+}
+
+.search-container button {
+  background-color: #4CAF50;
+  box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.2);
+  color: white;
+  z-index: 1;
+  border: none;
+  padding: 9px 16px;
+  margin-bottom:-36px;
+  font-size: 16px;
+  position: absolute;
+  right:16px;
+  transform: translateY(-50%);
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-container button svg {
+  width: 16px; 
+  height: 16px;
+  fill: white; 
+}
+
+.search-container button:hover {
+  background-color: #45a049;
+}
+  .collection {
+   display: flex;
+    overflow-x: auto; 
+    white-space: nowrap;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 0px 0;
+    background-color: #ffffff;
+    left: 0;
+    right: 0;
+    scrollbar-width: none;
+   -ms-overflow-style: none;
+}
+   .collection div {
+    font-size: 15.5px;
+    color: #555;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 10px 12px;
+    margin-left :4px;
+    }
+  .collection div.active {
+    font-weight: bold;
+    padding-bottom: 5px;
+    color: transparent;
+    background: linear-gradient(90deg, #6ec1ff, #ab47bc);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+    position: relative;
+}
+.collection div.active::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, #6ec1ff, #ab47bc);
+    border-radius: 2px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+.collection a {
+    text-decoration: none;
+    color: inherit;
+}
+.collection::-webkit-scrollbar {
+    display: none;
+}
+.divider2 {
+  border-top: 7px solid #F3F3F3;
+  margin-top: 10px;
+}
+  .h2-container {
+    padding: 0 6px;
+   margin-top: 10px;
+   margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 650;
+  }
+   .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+    padding: 5px;
+   }
+   .blog {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px; 
+   }
+   .blog img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: contain;
+    display: block; 
+    margin: 0; 
+    padding: 0; 
+    border-bottom: 1px solid #ddd;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+   }
+   .blog-info {
+    padding: 8px;
+    text-align: left;
+   }
+   .blog-info .description {
+    font-size: 13.5px;
+    color: ##1E1E26;
+    margin: 0;
+    display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+   }
+   .blog-info .price {
+    font-size: 16px;
+    font-weight: bold;
+    color: #000;
+    margin-top: 10px;
+    margin-bottom :10px;
+   }
+  .blog-info .ratting {
+   padding-left: 0px;
+   margin-top: 0px;
+   display: flex;
+   align-items: center;
+   margin-bottom :25px;
+  }
+  .blog-info .ratting .sr {
+   width: 12px;
+   height: 12px;
+   fill: #FFC50A;
+   margin-right: 2px; 
+   }
+  .blog-info .score {
+   color: #777;
+   font-weight: 500;
+   font-size: 10px;
+   margin-top: 2px;
+   margin-left: 2px;
+  }
+.alternating-titles {
+    font-size: 12px;
+    color: #555;
+    position: absolute;
+    bottom: 0;
+    left: 5px;
+    right: 5px;
+    text-align: left;
+    overflow: hidden;
+    height: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.mp {
+    display: block;
+    margin-right: 5px;
+    color: #4CAF50;
+    font-size: 20px;
+    position: absolute; 
+    opacity: 0;
+    animation: alternateFadeMP 6s infinite; /* تغيير الأنيمشن لتتزامن مع t1 */
+}
+
+@keyframes alternateFadeMP {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    10%, 40% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.t1 {
+    animation: alternateFadeT1 6s infinite; /* أنيمشن خاص بـ t1 */
+    animation-delay: 0s; /* Start
+    immediately */
+    margin-left: 17px;
+}
+
+@keyframes alternateFadeT1 {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    10%, 40% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.container-b1-t2 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: absolute;
+    left: 0;
+    height: 36px;
+    opacity: 0;
+    animation: alternateFadeContainer 6s infinite;
+    animation-delay: 2.5s;
+    width: fit-content; /* الحاوية تتكيف مع المحتوى */
+}
+
+.B1 {
+    width: 15px; 
+    height: 15px; 
+    margin-right: 5px;
+    margin-left: 3px;
+    border-radius: 50%; 
+    overflow: hidden; 
+}
+
+.B1 img {
+    width: 100%; 
+    height: 100%;
+    object-fit: cover; /* ضمان تناسب الصورة داخل العنصر */
+}
+
+.t2 {
+    white-space: nowrap; 
+}
+@keyframes alternateFadeContainer {
+    0% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    10%, 60% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    70% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 0;
+    }
+}
+   #product-modal {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1000;
+    align-items: flex-end;
+    justify-content: center;
+   }
+   #product-modal .modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    max-height: 100vh;
+    background: #fff;
+    overflow-y: auto ;
+    animation: slide-up 0.3s ease-out;
+   }
+   #product-modal .modal-content img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+   }
+   @keyframes slide-up {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+ }
+#product-modal #slideshow {
+  display: flex; 
+  overflow-x: scroll; 
+  scroll-snap-type: x mandatory; 
+  scroll-behavior: smooth; 
+}
+
+#product-modal .slide {
+  min-width: 100%; 
+  scroll-snap-align: start; 
+}
+#product-modal .slide img {
+  width: 100%; 
+  height: 350px; 
+  object-fit: contain; /* الحفاظ على أبعاد الصورة بدون تشويه */
+}
+#product-modal .modal-description-container {
+  display: flex;
+  flex-direction: column;
+  padding: 5px 10px;
+  position: relative;
+  overflow: visible;
+}
+#product-modal .modal-description-container .description {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 450;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+#product-modal .price {
+  font-family: 'Helvetica', sans-serif;
+  font-size: 19px; 
+  font-weight: 700; 
+  color: #333; 
+  padding: 0px;
+  text-align: left; 
+  margin-top: 10px;
+  margin-bottom: 2px;
+}
+#product-modal .ratting {
+  margin-top: 12px;
+  margin-bottom: -10px;
+  display: flex;
+  align-items: center;
+}
+#product-modal .ratting .sr {
+  width: 16px;
+  height: 16px;
+  fill: #F6B01D;
+  margin-right: 2px; 
+}
+#product-modal .ratting .score {
+  color: #777;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 2px;
+  margin-left: 2px;
+}
+#product-modal .image-section {
+  padding: 0 10px;
+  margin-bottom: -11px;
+}
+#product-modal .image-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+#product-modal .image-label {
+  font-size: 13px;
+  font-weight: bold;
+}
+#product-modal .image-selection {
+  display: flex;
+  gap: 10px;
+}
+#product-modal .image-option {
+  width: 40px;
+  height: 40px;
+  border-radius :10px;
+  border: 2px solid #ddd;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+#product-modal .image-option img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#product-modal .image-option:hover {
+  transform: scale(1.1);
+  border-color: #333;
+}
+#product-modal .s-section {
+  max-width: 600px;
+  margin: auto;
+  border-radius:15px;
+  padding: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+#product-modal .s-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -px;
+}
+#product-modal .s-label {
+  font-weight: bold;
+  font-size: 13px;
+}
+#product-modal .Guide {
+  font-size: 12px;
+  color: #25629A;
+  cursor: pointer;
+  text-decoration: none; 
+  font-weight: 500;
+  margin-bottom :-5px;
+}
+#product-modal .s-selection {
+  display: flex;
+  gap: 10px;
+  font-size: 14px;
+}
+#product-modal .s-option {
+  width: 70px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ccc;
+  cursor: pointer;
+  font-weight: bold;
+}
+#product-modal .h2 {
+   padding: 0 10px;
+   margin-top: 15px;
+   margin-bottom: 12px;
+  font-size: 15px;
+  font-weight: 650;
+  
+}
+#product-modal .product-list {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+  padding: 0 10px;
+  overflow-x: auto;
+  margin-bottom: 80px;
+}
+#product-modal .product-item {
+  width: 180px;
+  height:280px;
+  text-align: center;
+  font-family: Arial, sans-serif;
+  background-color: #fff;
+  border-radius: 10px;
+  border: 1px solid #ddd; 
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+#product-modal .product-item img {
+  width: 180px;
+  height: 175px;
+  border-radius: 10px;
+  border-bottom: 1px solid #ddd;
+    border-bottom-left-radius: 15px; 
+    border-bottom-right-radius: 15px; 
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+#product-modal .product-item .description {
+  font-size: 14px;
+  margin-left:10px;
+  margin-top: 11px;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px;
+  text-align: center; 
+}
+#product-modal .ratting2 {
+  margin-top: 2px;
+  margin-bottom: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#product-modal .ratting2 .sr2 {
+  width: 14px;
+  height: 14px;
+  fill: #F6B01D;
+  margin-right: 2px; 
+}
+#product-modal .ratting2 .score2 {
+  color: #777;
+  font-weight: 500;
+  font-size: 12px;
+  margin-top: 2px;
+  margin-left: 2px;
+}
+#product-modal .product-item .price {
+  font-family: 'Helvetica', sans-serif;
+  font-weight: bold;
+  text-align: center;
+  font-size: 16px;
+  color: #000;
+}
+#product-modal .m-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  margin: 0;
+  width: 100%;
+  z-index: 1000;
+  border-top-left-radius: 50px;
+  border-top-right-radius: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  background-color: #ffffff;
+  padding: 15px 0;
+  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+  #product-modal .m-container .main-button {
+  width:330px;
+  height:40px;
+  margin-right: 5px;
+  background-color: #00579C; 
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
+ }
+ #product-modal .close-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+#product-modal .close-btn:hover {
+  background-color: #f0f0f0;
+}
+#product-modal .close-btn svg {
+  fill: black;
+  width: 24px;
+  height: 24px;
+}
+#iframe-modal {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  align-items: flex-end;
+  justify-content: center;
+}
+#iframe-modal .modal-content {
+  position: fixed;
+  width: 100%;
+  max-width: 500px;
+  height: 100vh;
+  background: #fff;
+  overflow: hidden;
+  z-index: 1000; 
+  animation: iframe-slide-up 0.3s ease-out;
+}
+#iframe-content {
+  width: 103%; 
+  height: 130vh; 
+  border: none; 
+  border-radius: 0;
+  margin-top: -70px;
+  display: block;
+  margin-left: -3px;
+  margin-right: -3px;
+}
+@keyframes iframe-slide-up {
+  from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+   to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+#iframe-modal .close-btn {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+#iframe-modal .close-btn:hover {
+  background-color: #e0e0e0;
+}
+#iframe-modal .close-btn svg {
+  fill: black ;
+  width: 20px;
+  height: 20px;
+}
+ .footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    padding: 10px 0;
+    z-index: 10;
+}
+.footer div {
+    font-size: 12px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.footer-icon {
+    font-size: 22px; /* حجم الأيقونة */
+    background-image: linear-gradient(90deg, #6ec1ff, #ab47bc); /* التدرج اللوني */
+    -webkit-background-clip: text; /* تطبيق التدرج على النص */
+    color: transparent; /* جعل النص شفافًا بحيث يظهر التدرج */
+    margin-bottom: 5px; /* مسافة بين الأيقونة والنص */
+}
+body {
+    margin-bottom: 60px; /* لتعويض ارتفاع الفوتر */
+}
+    </style>
 </head>
 <body>
-  <div id="cesiumContainer"></div>
+ 
+    <!-- Hero Section -->
+    <div class="hero">
+      <div class="divider1">
+    <div class="overlay"></div>
+    <div class="logo"
+    <img src="/logo /logo (1).png"></div>
+   	<div class="contact">
+						<a href="index.html"><img src="/icon /map-icon.png"></a>
+						<a href="#"><img src="/icon /phone-icon.png"></a>
+						<a href="#"><img src="/logo /logo (1).png"></a>
+						<a href="#"><img src="/logo /logo (1).png"></a>
+						<button class="btn-show-sidebar m-l-33 trans-0-4"></button>
+					</div>
+        <!-- Title -->
+        <div class="hero-content">
+            <h1 class="animate__animated animate__fadeInDown">Welcome</h1>
+        </div>
+    </div>
+    </div>
+       <div class="ouvrir">
+    <button class="top" id="fade-button" type="button" onclick="scrollToSection()">Collection</button>
+  </div>
+  <div class="header">
+    <div class="logo2">
+   <span class="logo2-span">Store logo</span>
+    <button class="notification-icon">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="64" height="64">
+  <!-- شكل الجرس -->
+  <path d="M12 2a2 2 0 0 1 2 2v.09A6.007 6.007 0 0 1 18 10v5h1a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2h1v-5a6.007 6.007 0 0 1 4-5.91V4a2 2 0 0 1 2-2zm-1 18h2a2 2 0 0 1-2 2 2 2 0 0 1-2-2h2z" fill="none" stroke="black" stroke-width="1.5" />
 
-  <script>
-    // إنشاء خريطة Cesium
-    const viewer = new Cesium.Viewer('cesiumContainer', {
-  imageryProvider: new Cesium.UrlTemplateImageryProvider({
-    url: 'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-    credit: '© Esri'
-  }),
-  baseLayerPicker: false,
-  infoBox: false,
-  selectionIndicator: false
+  <!-- الدائرة الحمراء -->
+  <circle cx="17" cy="6" r="5" fill="red" />
+
+  <!-- النص داخل الدائرة -->
+  <text x="17" y="8" font-size="5" fill="white" text-anchor="middle" font-family="Arial" font-weight="bold">15</text>
+</svg>
+    </button>
+  </div>
+<div class="search-container">
+  <div class="placeholders">
+    <span class="r1">Recherche...</span>
+    <span class="r2">Nom de boutique</span>
+  </div>
+  <input type="text" id="search-input" placeholder="">
+  <button onclick="search()">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 513.749 513.749" width="512" height="512">
+      <g>
+        <path d="M504.352,459.061l-99.435-99.477c74.402-99.427,54.115-240.344-45.312-314.746S119.261-9.277,44.859,90.15   S-9.256,330.494,.171,404.896c79.868,59.766,189.565,59.766,269.434,0l99.477,99.477c12.501,12.501,32.769,12.501,45.269,0   c12.501-12.501,12.501-32.769,0-45.269L504.352,459.061z M225.717,385.696c-88.366,0-160-71.634-160-160s71.634-160,160-160   s160,71.634,160,160C385.623,314.022,314.044,385.602,225.717,385.696z" />
+      </g>
+    </svg>
+  </button>
+</div>
+
+  <!-- Navigation -->
+  <div class="collection">
+    <div class="active"><a href="#">Offres</a></div>
+    <div><a href="/T2-main/index2.html">Vestes</a></div>
+    <div><a href="/T2-main/index3.html">Chaussures</a></div>
+    <div><a href="/T2-main/index4.html">Pantalon</a></div>
+    <div><a href="/T2-main/index5.html">T-shirt</a></div>
+    <div><a href="/T2-main/index6.html">Chemise</a></div>
+    <div><a href="/T2-main/index7.html">Services de mariage</a></div>
+  </div>
+</div>
+<div class="slideshow-container-1">
+  <div class="slides-wrapper">
+    <div class="slide-1">
+      <a href="https://example.com/page1" target="_blank">
+        <img src="/slideshow 2/IMG_20241206_051919.jpg" alt="Image 1">
+      </a>
+    </div>
+    <div class="slide-1">
+      <a href="https://example.com/page2" target="_blank">
+        <img src="/slideshow 2/IMG_20241206_051919.jpg" alt="Image 2">
+      </a>
+    </div>
+    <div class="slide-1">
+      <a href="https://example.com/page3" target="_blank">
+        <img src="/slideshow 2/IMG_20241206_051919.jpg" alt="Image 3">
+      </a>
+    </div>
+    <div class="slide-1">
+      <a href="https://example.com/page4" target="_blank">
+        <img src="/slideshow%202/IMG_20241206_052045.jpg" alt="Image 4">
+      </a>
+    </div>
+  </div>
+</div>
+<div class="divider2"></div>
+<p class="h2-container">Vous aimerez aussi</p>
+ <div class="container" id="products-container"></div>
+ <div class="modal" id="product-modal">
+ <div class="modal-content">
+ <button class="close-btn" id="close-modal">
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+ <path fill="none" d="M0 0h24v24H0z" />
+ <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" /></svg>
+ </button>
+ <div id="slideshow"></div>
+ <div id="pagination-dots" class="pagination-dots"></div>
+ <div class="modal-description-container" id="modal-description-container"></div>
+ <p id="modal-price"></p>
+<div class="image-section">
+<div class="image-header">
+<p class="image-label">Couleur:</p>
+</div>
+<div class="image-selection">
+<div class="image-option">
+<img src="https://via.placeholder.com/50x50" alt="Option 1">
+</div>
+<div class="image-option">
+<img src="https://via.placeholder.com/50x50" alt="Option 2">
+</div>
+<div class="image-option">
+<img src="https://via.placeholder.com/50x50" alt="Option 3">
+</div>
+<div class="image-option">
+<img src="https://via.placeholder.com/50x50" alt="Option 4">
+    </div>
+  </div>
+</div>
+<div class="s-section">
+<div class="s-header">
+<p class="s-label">Size:</p>
+<a href="https://www.example.com" target="_blank" id="size-info-title" class="Guide">Guide des tailles</a>
+</div>
+<div class="s-selection">
+<div class="s-option">S</div>
+<div class="s-option">M</div>
+<div class="s-option">L</div>
+<div class="s-option">XL</div>
+<div class="s-option">XXL</div>
+</div>
+</div>
+<p class="h2">Vous aimerez aussi</p>
+<div class="product-list" id="product-list"></div>
+  </div>
+</div>
+<div class="modal" id="iframe-modal">
+ <div class="modal-content">
+ <button class="close-btn" id="close-iframe-modal">
+ <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+ <path fill="none" d="M0 0h24v24H0z" />
+ <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z" />
+ </svg>
+ </button>
+ <iframe id="iframe-content" frameborder="0"></iframe>
+  </div>
+</div>
+ <script>
+ const products = [
+            {
+               images: [
+                 "/img veste /31zyWkrw-ML._AC_UX450_UY450_SR450,450_.jpg"
+                 ,
+                  "/img veste /41bDnIpeWaL._AC_UX450_UY450_SR450,450_.jpg"
+                  ,
+                  "/img veste /41CqD4KLvkL._AC_UX450_UY450_SR450,450_.jpg"
+                  ,
+                  "/T2-main/image/products /images (12) (25).jpeg"
+                ],
+               description: "PREMIA - t-shirt légères et respirantes pour homme.",
+               price: "56.00 TND",
+               ratting: 4.9
+            },
+            {
+               images: [
+                    "/img veste /41bDnIpeWaL._AC_UX450_UY450_SR450,450_.jpg",
+                    "/img veste /31zyWkrw-ML._AC_UX450_UY450_SR450,450_.jpg"
+                   ,
+                    "/T2-main/image/products /images (12) (25).jpeg",
+                    "/T2-main/image/products/images (12) (20).jpeg"
+                ],
+               description: "PREMIA - t-shirt légères et respirantes pour homme.",
+               price: "46.00 TND",
+               ratting: 4.8
+            },
+            {
+               images: [
+                    "/img veste /41CqD4KLvkL._AC_UX450_UY450_SR450,450_.jpg",
+                     "/T2-main/image/products /images (12) (25).jpeg",
+                    "/T2-main/image/products/images (12) (22).jpeg",
+                    "/T2-main/image/products/images (12) (20).jpeg"
+                ],
+               description: "Comfortable and lightweight running shoes.",
+               price: "46.00 TND",
+               ratting: 4.8
+            },
+            {
+               images: [
+                    "/img veste /41GWvGqeK-L._AC_UX450_UY450_SR450,450_.jpg",
+                     "/T2-main/image/products /images (12) (25).jpeg",
+                    "/T2-main/image/products /images (12) (25).jpeg",
+                    "/T2-main/image/products/images (12) (20).jpeg"
+                ],
+               description: "Running shoes",
+               price: "46.00 TND",
+               ratting: 4.8
+            },
+            {
+               images: [
+                    "/img veste /1 (4).jpg",
+                     "/T2-main/image/products /images (12) (25).jpeg",
+                    "/T2-main/image/products /images (12) (25).jpeg",
+                    "/T2-main/image/products/images (12) (20).jpeg"
+                ],
+               description: "test  ",
+               price: "46.00 TND",
+               ratting: 4.8
+            },
+            {
+               images: [
+                    "/img veste /41WBWHvblvL._AC_UX450_UY450_SR450,450_.jpg",
+                    "/T2-main/image/products/images (12) (22).jpeg",
+                    "/T2-main/image/products/images (12) (20).jpeg"
+                ],
+               description: "Comfortable and lightweight running shoes.",
+               price: "46.00 TND",
+               ratting: 4.8
+            }
+        ];
+  const searchInput = document.getElementById('search-input');
+  const container = document.getElementById('products-container');
+  const modal = document.getElementById('product-modal');
+  const slideshow = document.getElementById('slideshow');
+  const modalDescriptionContainer = document.getElementById('modal-description-container');
+  const modalPrice = document.getElementById('modal-price');
+  const closeModal = document.getElementById('close-modal');
+  const productList = document.getElementById('product-list');
+  const iframeModal = document.getElementById('iframe-modal');
+  const closeIframeModal = document.getElementById('close-iframe-modal');
+  const iframeContent = document.getElementById('iframe-content');
+  const paginationDots = document.getElementById('pagination-dots');
+  const slides = document.querySelectorAll('.slide-1');
+const slidesWrapper = document.querySelector('.slides-wrapper');
+const slideshowContainer = document.querySelector('.slideshow-container-1');
+
+  // متغيرات تتبع للحالة الحالية
+  let currentModalProduct = null;
+  let currentOpenBlog = null;
+  let isProductFromHomepage = true;
+
+window.onload = function() {
+  displayProducts(products); // عرض جميع المنتجات عند تحميل الصفحة
+};
+
+const placeholderTexts = ["Recherche...", "Nom de boutique"];
+let index = 0;
+const placeholders = document.querySelector(".placeholders");
+// تحديث النصوص في الأماكن المخصصة
+setInterval(() => {
+  document.querySelector(".r1").textContent = placeholderTexts[index];
+  document.querySelector(".r2").textContent = placeholderTexts[(index + 1) % placeholderTexts.length];
+  index = (index + 1) % placeholderTexts.length;
+}, 6000); // يجب أن تتزامن مع مدة الحركة في CSS
+
+// إخفاء النصوص المتحركة عند الكتابة في الحقل
+searchInput.addEventListener("input", () => {
+  placeholders.style.display = searchInput.value.trim() ? "none" : "block";
 });
 
-    // تحديد الكاميرا
-    viewer.camera.setView({
-      destination: Cesium.Cartesian3.fromDegrees(9.608857, 36.651069, 200),
-      orientation: {
-        heading: Cesium.Math.toRadians(130),
-        pitch: Cesium.Math.toRadians(-25),
-        roll: 0
-      }
-    });
-    // تحسين العرض
-    viewer.shadows = true;
-    viewer.scene.shadowMap.maximumDistance = 1000;
-    viewer.scene.shadowMap.size = 2048;
-    viewer.resolutionScale = 2.0;
-    viewer.scene.globe.tileCacheSize = 1000;
-    viewer.scene.globe.baseColor = Cesium.Color.LIGHTGRAY;
-viewer.scene.globe.baseColor = Cesium.Color.fromCssColorString('#e0e0e0'); // تغيير اللون الأساسي للأرض
+// دالة البحث
+function search() {
+  const query = searchInput.value.toLowerCase();
+  const filteredProducts = products.filter(product =>
+    product.description.toLowerCase().includes(query)
+  );
+  displayProducts(filteredProducts); // عرض المنتجات المفلترة
+}
 
-    viewer.scene.light = new Cesium.DirectionalLight({
-      direction: new Cesium.Cartesian3(1, 1, -1),
-      intensity: 5.0
-    });
+let currentIndex = 0;
+const totalSlides = slides.length;
 
-    viewer.scene.ambientLight = new Cesium.Color(1.0, 1.0, 1.0, 0.5);
+function showSlide(index) {
+  const slideWidth = slides[0].offsetWidth; // عرض الشريحة
+  const containerWidth = slideshowContainer.offsetWidth; // عرض الحاوية
 
-    // دالة لإنشاء الأيقونة
-    function createIconImage(iconUrl) {
-      return new Promise((resolve) => {
-        const icon = new Image();
+  let offset;
+  if (index === 0) {
+    // إذا كانت الصورة الأولى، اجعلها في أقصى اليسار
+    offset = 0;
+  } else {
+    // بقية الصور تكون متمركزة
+    offset = -index * slideWidth + (containerWidth - slideWidth) / 2;
+  }
 
-        icon.onload = function () {
-          const canvas = document.createElement("canvas");
-          const ctx = canvas.getContext("2d");
-          const iconSize = 40;
+  slidesWrapper.style.transform = `translateX(${offset}px)`;
+}
 
-          canvas.width = iconSize;
-          canvas.height = iconSize;
+function nextSlide() {
+  currentIndex = (currentIndex + 1) % totalSlides;
+  showSlide(currentIndex);
+}
 
-          ctx.drawImage(icon, 0, 0, iconSize, iconSize);
+// تحديث عند تغيير حجم النافذة
+window.addEventListener('resize', () => showSlide(currentIndex));
 
-          resolve(canvas.toDataURL());
-        };
+// بدء عرض الشرائح
+setInterval(nextSlide, 3000);
 
-        icon.src = iconUrl;
-      });
-    }
+// عرض الشريحة الأولى عند بدء التشغيل
+showSlide(currentIndex);
+// دالة لعرض المنتجات
+function displayProducts(productsToDisplay) {
+  container.innerHTML = ''; // مسح المنتجات السابقة قبل عرض المفلترة
 
-    // دالة لإنشاء النص
-    function createTextImage(text, font = "5px Tajawal", textColor = "#000") {
-      return new Promise((resolve) => {
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
+  // تكرار المنتجات وإضافة الأحداث
+  productsToDisplay.forEach((product, index) => {
+    const blog = document.createElement('div');
+    blog.classList.add('blog');
+    blog.innerHTML = `
+      <img src="${product.images[0]}" alt="Product ${index + 1}" loading="lazy">
+      <div class="blog-info">
+         <p class="description">
+                ${product.description}
+            </p>
+             <p class="price">${product.price}</p>
+            <p class="ratting">
+            <svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+                <span class="score">${product.ratting}</span></p>
+      <div class="alternating-titles">
+  <svg class="mp" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+    <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5z"></path>
+  </svg>
+  <span class="t1">Adresse de la boutique</span>
 
-        ctx.font = font;
-        const textWidth = ctx.measureText(text).width;
+  <!-- الحاوية الجديدة -->
+  <div class="container-b1-t2">
+    <div class="B1">
+      <img src="/img boutiques/images (12) (26).jpeg" alt="Option 4">
+    </div>
+    <span class="t2">Boutique 1</span>
+  </div>
+</div>
+    `;
 
-        canvas.width = textWidth + 20;
-        canvas.height = 20;
-
-        ctx.fillStyle = textColor;
-        ctx.textAlign = "center";
-        ctx.textBaseline = "middle";
-        ctx.fillText(text, canvas.width / 2, canvas.height / 2);
-
-        resolve(canvas.toDataURL());
-      });
-    }
-
-    // قائمة الأماكن
-    const places = [
-      {
-        name: "Shell",
-        latitude: 36.649848,
-        longitude: 9.609992,
-        iconUrl: "/icon/mollusque.png",
-        link: "http://localhost:7700/Pwaap-main/index%202.html"
-      },
-      {
-        name: "جامع المنوبي",
-        latitude: 36.649706,
-        longitude: 9.611688,
-        iconUrl: "/icon/mosquee.png",
-        link: "http://localhost:7700/Pwaap-main/index%202.html"
-      }
-    ];
-
-    // خريطة لتتبع الكيانات
-    const entityMap = new Map();
-
-    // إضافة الأماكن إلى الخريطة
-    places.forEach((place) => {
-      Promise.all([
-        createIconImage(place.iconUrl),
-        createTextImage(place.name)
-      ]).then(([iconImage, textImage]) => {
-        // إضافة الأيقونة
-        const iconEntity = viewer.entities.add({
-          position: Cesium.Cartesian3.fromDegrees(place.longitude, place.latitude),
-          billboard: {
-            image: iconImage,
-            width: 32,
-            height: 32,
-            verticalOrigin: Cesium.VerticalOrigin.BOTTOM
-          }
-        });
-
-        // إضافة النص أسفل الأيقونة
-        const textEntity = viewer.entities.add({
-          position: Cesium.Cartesian3.fromDegrees(place.longitude, place.latitude),
-          billboard: {
-            image: textImage,
-            width: 80,
-            height: 20,
-            verticalOrigin: Cesium.VerticalOrigin.TOP,
-            pixelOffset: new Cesium.Cartesian2(0, 8) // إزاحة النص أسفل الأيقونة
-          }
-        });
-
-        // إضافة الرابط إلى الأيقونة فقط
-        entityMap.set(iconEntity, place.link);
-      });
+    // إضافة أحداث للنقر
+    blog.addEventListener('click', () => {
+      highlightCurrentBlog(blog);
+      displayModal(product);
     });
 
-    // إضافة معالج النقر على الأيقونات
-    const handler = new Cesium.ScreenSpaceEventHandler(viewer.scene.canvas);
-    handler.setInputAction(function(click) {
-      const pickedObject = viewer.scene.pick(click.position);
-      if (Cesium.defined(pickedObject) && entityMap.has(pickedObject.id)) {
-        let link = entityMap.get(pickedObject.id);
+    blog.querySelector('.alternating-titles').addEventListener('click', (event) => {
+      event.stopPropagation(); // منع الحدث من الانتشار إلى العناصر الأب
+      openIframeModal();
+    });
 
-        if (!link.startsWith("http://") && !link.startsWith("https://")) {
-          link = "https://" + link;
-        }
+    container.appendChild(blog);
+  });
+}
+   
+  // وظيفة لتحديث محتوى النافذة المنبثقة
+  function updateModalContent(product) {
+  modalDescriptionContainer.innerHTML = `
+  <p class="description">
+   ${product.description}</p>
+    <p class="price">${product.price}</p>
+   <p class="ratting">
+            <svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+                <span class="score">${product.ratting}</span></p>
+  <div class="m-container">
+  <button class="main-button">Adresse de la boutique</button>
+    </div>
+   </div>
+ </div>
+ `;
+  // إضافة مستمع حدث للنقر لفتح نافذة iframe المنبثقة
+  modalDescriptionContainer.querySelector('.main-button').addEventListener('click', (event) => {
+  event.stopPropagation();
+  openIframeModal();
+  });
+  updateProductList(product);
+}
 
-        window.location.href = link;
-      }
-    }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
-  </script>
+  // وظيفة لتحديث عرض الشرائح
+  function updateSlideshow(images) {
+  slideshow.innerHTML = '';
+
+  images.forEach((image, index) => {
+    const slide = document.createElement('div');
+    slide.classList.add('slide');
+    slide.innerHTML = `<img src="${image}" alt="Slide ${index + 1}" loading="lazy">`;
+    slideshow.appendChild(slide);
+  });
+
+  let currentIndex = 0;
+  let autoScrollInterval = setInterval(scrollToNextSlide, 1000);
+
+  function scrollToNextSlide() {
+    currentIndex = (currentIndex + 1) % images.length;
+    slideshow.scrollLeft = slideshow.offsetWidth * currentIndex;
+  }
+
+  function stopAutoScroll() {
+    clearInterval(autoScrollInterval);
+  }
+
+  // Stop auto-scroll on manual scroll
+  slideshow.addEventListener('scroll', () => {
+    stopAutoScroll();
+  });
+
+  // Optional: Restart auto-scroll after a period of inactivity
+  let manualScrollTimeout;
+  slideshow.addEventListener('scroll', () => {
+    clearTimeout(manualScrollTimeout);
+    manualScrollTimeout = setTimeout(() => {
+      autoScrollInterval = setInterval(scrollToNextSlide, 1000);
+    }, 7000); // 5 seconds of inactivity
+  });
+
+  setTimeout(() => {
+    slideshow.scrollLeft = 0;
+  }, 0);
+}
+  // وظيفة لتحديث قائمة المنتجات في النافذة المنبثقة
+  function updateProductList(currentProduct)
+  {
+  const sortedProducts = [currentProduct, ...products.filter(prod => prod !== currentProduct)];
+  productList.innerHTML = ''; // مسح المحتوى القديم
+  sortedProducts.forEach((prod) => {
+  const productItem = document.createElement('div');
+  productItem.classList.add('product-item');
+  productItem.innerHTML = `
+  <img src="${prod.images[0]}" alt="Product image" loading="lazy">
+  <p class="description">${prod.description}</p>
+  <p class="ratting2">
+            <svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+<svg class="sr2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+  <path d="M259.3 17.8L194 150.2 47.9 171.5c-26.2 3.8-36.7 36.1-17.7 54.6l105.7 103-25 145.5c-4.5 26.2 23 46 46.4 33.7L288 439.6l130.6 68.7c23.4 12.3 50.9-7.5 46.4-33.7l-25-145.5 105.7-103c19-18.5 8.5-50.8-17.7-54.6l-146.1-21.3L316.7 17.8c-11.7-23.6-45.6-23.9-57.4 0z" />
+</svg>
+                <span class="score2">${prod.ratting}</span></p>
+  <p class="price">${prod.price}</p>`;
+  productItem.addEventListener('click', () =>
+  {
+  modal.style.display = 'none';
+      displayModal(prod);
+  });
+  productList.appendChild(productItem);
+  });
+  setTimeout(() => {
+    productList.scrollLeft = 0; 
+  }, 0);
+}
+  // وظيفة لتظليل العنصر الحالي
+  function highlightCurrentBlog(blog) {
+    if (currentOpenBlog && currentOpenBlog !== blog) 
+    currentOpenBlog = blog;
+  }
+ // وظيفة لعرض نافذة المنتج
+  function displayModal(product) {
+  currentModalProduct = product;
+  updateSlideshow(product.images);
+  updateModalContent(product);
+  modal.style.display = 'flex';
+
+  // إعادة التمرير لأعلى العنصر .modal-content
+  const modalContent = modal.querySelector('.modal-content');
+  if (modalContent) {
+    modalContent.scrollTop = 0;
+  }
+
+  document.body.style.overflow = 'hidden';
+  if (isProductFromHomepage) {
+    history.pushState({ productModalOpen: true }, '', location.pathname + "#product-modal");
+    isProductFromHomepage = false;
+  }
+}
+  function openIframeModal() {
+  iframeModal.style.display = 'flex';
+  iframeContent.src = "https://www.google.com/maps/d/u/0/embed?mid=1Cr7b5xePZ3C0B747aW61R30mDt2c-DY&ehbc=2E312F";
+  document.body.style.overflow = 'hidden';
+  modal.style.overflow = 'hidden';
+  history.pushState({ iframeModalOpen: true }, '', location.pathname + "#iframeModal");
+}
+  function closeAllModals() {
+  if (iframeModal.style.display === 'flex') {
+    iframeModal.style.display = 'none';
+    iframeContent.src = "";
+    history.replaceState(null, '', location.pathname);
+    modal.style.overflow = 'auto';
+    document.body.style.overflow = 'auto';
+  }
+  if (modal.style.display === 'flex') {
+    modal.style.display = 'none';
+    isProductFromHomepage = true;
+    history.replaceState(null, '', location.pathname);
+    document.body.style.overflow = 'auto';
+  }
+  if (iframeModal.style.display === 'none' && modal.style.display === 'none') {
+    document.body.style.overflow = 'auto';
+  }
+}
+window.addEventListener('popstate', (event) => {
+  if (event.state && event.state.iframeModalOpen) {
+    iframeModal.style.display = 'flex';
+    modal.style.display = 'none';
+    document.body.style.overflow = 'hidden'; 
+  } else if (event.state && event.state.productModalOpen) {
+    modal.style.display = 'flex';
+    iframeModal.style.display = 'none';
+    document.body.style.overflow = 'hidden';
+  } else {
+    closeAllModals();
+  }
+});
+  window.addEventListener("scroll", function() {
+  const logo2 = document.querySelector(".logo2");
+
+  // التحقق مما إذا كان القسم logo2 في أعلى الصفحة
+  if (logo2.getBoundingClientRect().top === 0) {
+    logo2.classList.add("no-radius");
+  } else {
+    logo2.classList.remove("no-radius");
+  }
+});
+function scrollToSection() {
+  const section = document.querySelector('.header'); // تحديد القسم باستخدام class
+  if (section) { // التحقق من وجود العنصر
+    section.scrollIntoView({ behavior: 'smooth' }); // تمرير سلس للقسم
+  } else {
+    console.error('العنصر الذي تحاول التمرير إليه غير موجود.');
+  }
+}
+const ouvrir = document.querySelector('.ouvrir'); // حدد العنصر .ouvrir
+
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY; // قيمة التمرير العمودي
+  const maxScroll = 200; // الحد الأعلى الذي يختفي عنده العنصر
+
+  // حساب نسبة الشفافية بناءً على التمرير
+  const opacity = Math.max(1 - scrollY / maxScroll, 0);
+  ouvrir.style.opacity = opacity; // تغيير الشفافية للعنصر بأكمله
+});
+</script>
 </body>
 </html>
