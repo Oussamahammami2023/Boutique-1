@@ -1,508 +1,132 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
 <head>
   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-  <title>test page</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-     <link rel="manifest" href="manifest.json">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>خريطة ثلاثية الأبعاد مع تصنيفات الطرق</title>
+  <script src="https://cesium.com/downloads/cesiumjs/releases/1.104/Build/Cesium/Cesium.js"></script>
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.104/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #ffffff; /* لون أسود مع شفافية 50% */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+    #cesiumContainer { width: 100%; height: 100vh; }
+    
+    /* إخفاء أدوات Cesium */
+    .cesium-viewer-toolbar,
+    .cesium-viewer-animationContainer,
+    .cesium-viewer-timelineContainer,
+    .cesium-viewer .cesium-credit-logoContainer,
+    .cesium-viewer .cesium-credit-textContainer {
+      display: none !important;
     }
-  .header {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  background-color: #fff;
-  padding: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 10;
-}
 
-.header-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.header-top .logo {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  font-weight: bold;
-  background-image: linear-gradient(90deg, #6ec1ff, #ab47bc);
-  -webkit-background-clip: text;
-  color: transparent;
-}
-
-.notification-icon {
-  font-size: 23px; /* حجم الأيقونة */
-  color: #555; /* لون الأيقونة */
-  cursor: pointer;
-  margin-right:5px;
-}
-.notification-icon:hover {
-  color: #007bff; /* لون الأيقونة عند التمرير */
-}
-
-.header-bottom {
-  display: flex;
-  align-items: center;
-  width: 100%;
-}
-
-.header-bottom .menu-icon {
-  width: 30px;
-  height: 30px;
-  background-color: #ddd;
-  border-radius: 5px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-right: 10px;
-  cursor: pointer;
-}
-
-.header-bottom .menu-icon::before {
-  content: '\2630'; /* رمز القائمة */
-  font-size: 18px;
-  color: #555;
-}
-
-.header-bottom input {
-  flex: 1;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 20px;
-  background-color: #f5f5f5;
-}
-
-.group-container-1-2 {
-    display: flex;
-    overflow-x: auto; 
-    gap: 10px;
-    padding: 14px 10px 2px 10px;
-    scroll-behavior: smooth;
-    margin-top:79px;
-}
-.group-container-1-2::-webkit-scrollbar {
-    display: none; 
-}
-.group-container-1-2 {
-    scrollbar-width: none; 
-}
-.group-1-2 {
-    min-width: 164px; 
-    background-size: cover; 
-    background-position: center; 
-    padding: 94px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    position: relative;
-}
-    /* Categories Section */
-    .categories-container {
-      padding: 3.5px 0;
-      background: white;
-      margin-bottom: 6px;
-      border-top-left-radius: 30px;
-  border-top-right-radius: 30px;
+    /* صورة التحميل */
+    #loading-image {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 9999;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 20px;
+      border-radius: 10px;
     }
-    .categories-header {
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 7px;
-      padding:6px;
-      
+      justify-content: space-around;
+      background-color: #fff;
+      border-top: 1px solid #ddd;
+      padding: 5px 0;
+      z-index: 10;
+      box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.1);
     }
-    .categories-header h2 {
-      font-size: 17px;
-      margin: 0;
-      font-weight: bold;
-      
-    }
-    .categories-header a {
-      font-size: 12px;
-      color: #007bff;
-      text-decoration: none;
-      font-weight: 500;
-      color: inherit;
-    }
-
-    .categories-header a:hover {
-      text-decoration: underline;
-    }
-
-    .categories {
-      display: flex;
-      gap: 18px;
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-
-    .categories::-webkit-scrollbar {
-      display: none;
-    }
-
-    .categories div {
-      flex: 0 0 auto;
+    .icon {
       text-align: center;
-      margin-left :6px;
-    }
-
-    .categories img {
-      width: 58px;
-      height: 58px;
-      border-radius: 30%;
-      margin-bottom: 5px;
-    }
-
-    .categories p {
-      font-size: 12.5px;
-      margin: 0;
-      font-weight: 590;
-    }
-
-    .categories a {
       text-decoration: none;
-      color: inherit;
+      color: #333;
     }
-      .products-container {
-  padding: 15px 6px;
-  background: white;
-}
-
-.products-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
-}
-  .products-header h2 {
-      font-size: 17px;
+    .icon img {
+      width: 40px;
+      height: 40px;
+      display: block;
       margin: 0;
-      font-weight: bold;
-  }
-.products {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px; /* لإضافة المسافات بين العناصر */
-  margin-bottom: 20px; /* إضافة مسافة بين الأقسام */
-}
-
-.product {
-  flex: 1;
-  padding: 10px;
-  background: #f9f9f9;
-  border-radius: 10px;
-  text-align: center ;
-  box-sizing: border-box; /* التأكد من أن الحشوة والمسافات لا تؤثر على الحجم الإجمالي */
-}
-
-.product img {
-  width: 97%;
-  height:150px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-}
-
-.product h3 {
-  font-size: 16px;
-  margin: 5px 0;
-}
-
-.product p {
-  font-size: 14px;
-  color: #666;
-  margin: 5px 0;
-}
-
-.product .price {
-  font-weight: bold;
-  color: #000;
-}
-
-/* تنسيق الأيقونة الثلاث نقاط */
-.three-dots {
-  font-size: 18px;
-  cursor: pointer;
-  color: #555;
-  margin-right:13px;
-}
-
-.three-dots:hover {
-  color: #007bff;
-}
-     .footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
-    background-color: #fff;
-    border-top: 1px solid #ddd;
-    padding: 10px 0;
-    z-index: 10;
-}
-.footer div {
-    font-size: 12px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-.footer-icon {
-    font-size: 22px; /* حجم الأيقونة */
-    background-image: linear-gradient(90deg, #6ec1ff, #ab47bc); /* التدرج اللوني */
-    -webkit-background-clip: text; /* تطبيق التدرج على النص */
-    color: transparent; /* جعل النص شفافًا بحيث يظهر التدرج */
-    margin-bottom: 5px; /* مسافة بين الأيقونة والنص */
-}
-body {
-    margin-bottom: 60px; /* لتعويض ارتفاع الفوتر */
-}
+    }
+    .icon span {
+      font-size: 10px;
+      font-weight: 500;
+      display: block;
+    }
   </style>
 </head>
 <body>
-<div class="header">
-  <!-- الصف العلوي: الشعار وأيقونة الإشعارات -->
-<div class="header-top">
-   <div class="logo">Bon plan mjez</div>
-  <div class="notification-icon">
-    <i class="fas fa-bell"></i>
-  </div>
+
+<div id="loading-image">
+    <img src="/imgloading/medjezimg.jpg" alt="Loading...">
 </div>
 
-  <!-- الصف السفلي: أيقونة القائمة وخانة البحث -->
-  <div class="header-bottom">
-    <div class="menu-icon" onclick="toggleSidebar(event)"></div>
-    <input type="text" placeholder="Rechercher dans les services de Medjez el Bab">
-  </div>
-</div>
+<div id="cesiumContainer"></div>
 
-  <div class="group-container-1-2" id="groupContainer">
-  <a href="https://example.com/link1" class="group-1-2" style="background-image: url('image/TN_Gen_mSliderT1.gif');"></a>
-  <a href="https://example.com/link2" class="group-1-2" style="background-image: url('image/IMG_20241020_192008.jpg');"></a>
-  <a href="https://example.com/link3" class="group-1-2" style="background-image: url('image/IMG_20241020_191924.jpg');"></a>
-  <a href="https://example.com/link4" class="group-1-2" style="background-image: url('image/T1.jpg');"></a>
-  <a href="https://example.com/link5" class="group-1-2" style="background-image: url('image/T2.jpg');"></a>
-</div>
+<script>
+  // إنشاء الخريطة
+  const viewer = new Cesium.Viewer('cesiumContainer', {
+    imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
+      url: 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer'
+    }),
+    terrainProvider: new Cesium.EllipsoidTerrainProvider(),
+    sceneMode: Cesium.SceneMode.SCENE3D
+  });
 
-  <!-- Categories Section -->
-  <div class="categories-container">
-    <div class="categories-header">
-      <h2>Catégories</h2>
-      <a href="#">Afficher tout</a>
-    </div>
-    <div class="categories">
-      <a href="https://oussamahammami2023.github.io/T2/">
-        <div>
-          <img src="image/Catégories/Restaurant 1.jpg" alt="Women">
-          <p>Restaurants</p>
-        </div>
-      </a>
-      <a href="pages/2bou.html">
-        <div>
-          <img src="image/Catégories/Boutique.png" alt="Men">
-          <p>Boutiques</p>
-        </div>
-      </a>
-      <a href="pages/p.html">
-        <div>
-          <img src="image/Catégories/Artisan.jpg" alt="Teens">
-          <p>Artisans</p>
-        </div>
-      </a>
-      <a href="pages/p2.html">
-        <div>
-          <img src="image/Catégories/1.jpg" alt="Kids">
-          <p>Médecin</p>
-        </div>
-      </a>
-      <a href="pages/5edu.html">
-        <div>
-          <img src="image/Catégories/1.jpg" alt="Kids">
-          <p>Éducation</p>
-        </div>
-      </a>
-       <a href="pages/6immo.html">
-        <div>
-          <img src="image/Catégories/3.jpg" alt="Women">
-          <p>Immobilier</p>
-        </div>
-       </a>
-       <a href="women.html">
-        <div>
-          <img src="image/Catégories/3.jpg" alt="Women">
-          <p>Architects</p>
-        </div>
-      </a>
-      <a href="men.html">
-        <div>
-          <img src="https://via.placeholder.com/50" alt="Men">
-          <p>Homme</p>
-        </div>
-      </a>
-      <a href="teens.html">
-        <div>
-          <img src="https://via.placeholder.com/50" alt="Teens">
-          <p>Teens</p>
-        </div>
-      </a>
-      <a href="kids.html">
-        <div>
-          <img src="https://via.placeholder.com/50" alt="Kids">
-          <p>Kids</p>
-        </div>
-      </a>
-    </div>
-  </div>
- <!-- Products Section -->
-<div class="products-container">
-  <div class="products-header">
-    <h2>Recommandé pour vous</h2>
-    <div class="three-dots">
-      <i class="fas fa-ellipsis-v"></i>
-    </div>
-  </div>
-  <div class="products">
-    <div class="product">
-      <img src="image/A1.jpg" alt="Product 1">
-      <h3>Zanzibar Lounge</h3>
-      <p>H&M - 4.9 (136)</p>
-    </div>
-    <div class="product">
-      <img src="image/A2.jpg" alt="Product 2">
-      <h3>Sultana lounge</h3>
-      <p>NASA - 4.8 (178)</p>
-    </div>
-  </div>
-  <div class="products">
-    <div class="product">
-      <img src="image/A3.jpg" alt="Product 1">
-      <h3>Pizzaria Tiburtina Roma Chef Naoufel</h3>
-      <p>H&M - 4.9 (136)</p>
-    </div>
-    <div class="product">
-      <img src="image/A4.jpg" alt="Product 2">
-      <h3>Café CASABLANCA</h3>
-      <p>NASA - 4.8 (178)</p>
-    </div>
-  </div>
-</div>
-  <div class="products-container">
-  <div class="products-header">
-    <h2> Vêtements</h2>
-    <div class="three-dots">
-      <i class="fas fa-ellipsis-v"></i>
-    </div>
-  </div>
-  <div class="products">
-    <div class="product">
-      <img src="image/A1.jpg" alt="Product 1">
-      <h3>Zanzibar Lounge</h3>
-      <p>H&M - 4.9 (136)</p>
-    </div>
-    <div class="product">
-      <img src="image/A2.jpg" alt="Product 2">
-      <h3>Pizzaria Tiburtina Roma Chef Naoufel</h3>
-      <p>NASA - 4.8 (178)</p>
-    </div>
-  </div>
-  <div class="products">
-    <div class="product">
-      <img src="image/A3.jpg" alt="Product 1">
-      <h3>Sultana lounge</h3>
-      <p>H&M - 4.9 (136)</p>
-    </div>
-    <div class="product">
-      <img src="image/A4.jpg" alt="Product 2">
-      <h3>Café CASABLANCA</h3>
-      <p>NASA - 4.8 (178)</p>
-    </div>
-  </div>
-  </div>
-  <div class="products-container">
-  <div class="products-header">
-    <h2>Santé & beauté</h2>
-    <div class="three-dots">
-      <i class="fas fa-ellipsis-v"></i>
-    </div>
-  </div>
-  <div class="products">
-    <div class="product">
-      <img src="image/A1.jpg" alt="Product 1">
-      <h3>Zanzibar Lounge</h3>
-      <p>H&M - 4.9 (136)</p>
-    </div>
-    <div class="product">
-      <img src="image/A2.jpg" alt="Product 2">
-      <h3>Pizzaria Tiburtina Roma Chef Naoufel</h3>
-      <p>NASA - 4.8 (178)</p>
-    </div>
-  </div>
-  <div class="products">
-    <div class="product">
-      <img src="image/A3.jpg" alt="Product 1">
-      <h3>Sultana lounge</h3>
-      <p>H&M - 4.9 (136)</p>
-    </div>
-    <div class="product">
-      <img src="image/A4.jpg" alt="Product 2">
-      <h3>Café CASABLANCA</h3>
-      <p>NASA - 4.8 (178)</p>
-    </div>
-  </div>
-  </div>
-  <div class="footer">
-    <div>
-      <i class="fas fa-home footer-icon"></i>
-      <span>Accueil</span>
-    </div>
-    <div>
-      <i class="fas fa-book-open footer-icon" style="font-size: 21.5px;"></i>
-      <span>Guide</span>
-    </div>
-    <div>
-      <i class="fas fa-tags footer-icon"></i>
-      <span>Offres</span>
-    </div>
-    <div>
-      <i class="fas fa-envelope footer-icon"></i>
-      <span>Message</span>
-    </div>
-    <div>
-      <i class="fas fa-question-circle footer-icon"></i>
-      <span>Aide</span>
-    </div>
-  </div>
-  <script>
-        const container = document.getElementById('groupContainer');
-const groups = container.children;
-let currentIndex = 0;
+  // تحميل بيانات الطرق من GeoJSON
+  Cesium.GeoJsonDataSource.load('/export 10.geojson').then(function (dataSource) {
+    viewer.dataSources.add(dataSource);
 
-function scrollGroups() {
-  currentIndex = (currentIndex + 1) % groups.length;
-  const groupWidth = groups[currentIndex].offsetWidth;
-  const containerWidth = container.offsetWidth;
-  const scrollPosition = groups[currentIndex].offsetLeft - (containerWidth / 2) + (groupWidth / 2);
-  container.scrollLeft = scrollPosition;
-}
+    // تعيين أنماط الطرق
+    const entities = dataSource.entities.values;
+    for (let i = 0; i < entities.length; i++) {
+      const entity = entities[i];
+      if (entity.polyline) {
+        const highwayType = entity.properties.highway.getValue();
+        let color = Cesium.Color.GRAY;
+        let width = 2;
 
-setInterval(scrollGroups, 5000);
-  </script>
+        if (["motorway", "trunk"].includes(highwayType)) {
+          color = Cesium.Color.RED;
+          width = 4;
+        } else if (["primary", "secondary"].includes(highwayType)) {
+          color = Cesium.Color.ORANGE;
+          width = 3;
+        } else if (["tertiary", "unclassified", "residential"].includes(highwayType)) {
+          color = Cesium.Color.GRAY;
+          width = 2;
+        }
+
+        entity.polyline.material = color;
+        entity.polyline.width = width;
+      }
+    }
+
+    // تحريك الكاميرا إلى الموقع المطلوب
+    viewer.camera.setView({
+      destination: Cesium.Cartesian3.fromDegrees(9.543598, 36.630179, 3500),
+      orientation: {
+        heading: Cesium.Math.toRadians(70),
+        pitch: Cesium.Math.toRadians(-20),
+        roll: 0.0
+      }
+    });
+  });
+
+  // مراقبة تحميل جميع الطبقات وإخفاء صورة التحميل عند اكتمالها
+  viewer.scene.globe.tileLoadProgressEvent.addEventListener(function (tileCount) {
+    if (tileCount === 0) {
+      document.getElementById("loading-image").style.display = "none";
+    }
+  });
+
+</script>
+
 </body>
 </html>
