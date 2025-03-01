@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>عرض طبقة ESRI في Leaflet</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+     body {
+       margin:0;
+       padding:0;
+     }
+        #map { height: 200vh; 
+          margin-top: -100px;
+        }
+        .copy-btn {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 5px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="map"></div>
+
+    <script>
+        // إنشاء الخريطة وتحديد الإحداثيات الأولية (الإحداثيات المطلوبة: 36.647980, 9.613499)
+        var map = L.map('map').setView([36.647980, 9.613499], 14); // تم تعديل الإحداثيات إلى 36.647980, 9.613499
+
+        // إضافة طبقة الصور الفضائية من Esri
+        L.tileLayer('https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+            attribution: '&copy; Esri, DigitalGlobe, GeoEye'
+        }).addTo(map);
+
+        // التعامل مع النقر المطول
+        map.on('click', function (e) {
+            showPopup(e.latlng);  // استخدام click بدلاً من mousedown
+        });
+
+        // وظيفة عرض النافذة المنبثقة مع زر النسخ
+        function showPopup(latlng) {
+            var lat = latlng.lat.toFixed(6);
+            var lng = latlng.lng.toFixed(6);
+            var popupContent = `
+                <b>الإحداثيات:</b> <br> 
+                <input type="text" id="coords" value="${lat}, ${lng}" readonly style="width: 100%; padding: 5px; text-align: center; margin-bottom: 5px;">
+                <button class="copy-btn" onclick="copyToClipboard()">📋 نسخ</button>
+            `;
+            L.popup().setLatLng(latlng).setContent(popupContent).openOn(map);
+        }
+
+        // وظيفة نسخ الإحداثيات إلى الحافظة
+        function copyToClipboard() {
+            var coordsInput = document.getElementById('coords');
+            coordsInput.select();
+            document.execCommand('copy');
+            alert('تم نسخ الإحداثيات: ' + coordsInput.value);
+        }
+    </script>
+
+</body>
+</html>
