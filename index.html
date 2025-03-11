@@ -158,23 +158,6 @@
       document.getElementById("loading-image").style.display = "none";
     }
   });
-
-    // الحصول على الرابط الذي حاول المستخدم زيارته
-    var requestedPage = window.location.pathname;
-
-    // التأكد من أن الصفحة ليست 404 نفسها (تجنب التكرار)
-    if (requestedPage !== "/404.html") {
-        // إعادة التوجيه إلى صفحة 404.html الخاصة بك مع الاحتفاظ بالرابط المطلوب
-        window.location.replace("404.html?redirect=" + encodeURIComponent(requestedPage));
-    } else {
-        // استخراج الصفحة المطلوبة من الرابط وعرضها للمستخدم
-        var urlParams = new URLSearchParams(window.location.search);
-        var missingPage = urlParams.get("redirect");
-
-        if (missingPage) {
-            document.body.innerHTML += `<p>الصفحة <strong>${missingPage}</strong> غير موجودة.</p>`;
-        }
-    }
   </script>
 </body>
 </html>
