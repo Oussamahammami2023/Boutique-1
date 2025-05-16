@@ -3,14 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>خريطة ثلاثية الأبعاد مع تصنيفات الطرق</title>
+  <title>خريطة مجاز الباب</title>
   <script src="https://cesium.com/downloads/cesiumjs/releases/1.129/Build/Cesium/Cesium.js"></script>
-  <link href="https://cesium.com/downloads/cesiumjs/releases/1.127/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
+  <link href="https://cesium.com/downloads/cesiumjs/releases/1.129/Build/Cesium/Widgets/widgets.css" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
-    #cesiumContainer { width: 100%; height: 100vh; margin-bottom:-30px;}
-    
-    /* إخفاء أدوات Cesium */
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    #cesiumContainer { width: 100vw; height: 100vh; }
     .cesium-viewer-toolbar,
     .cesium-viewer-animationContainer,
     .cesium-viewer-timelineContainer,
@@ -18,146 +16,60 @@
     .cesium-viewer .cesium-credit-textContainer {
       display: none !important;
     }
-
-    /* صورة التحميل */
-    #loading-image {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 9999;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(255, 255, 255, 0.7); /* يمكن إضافة خلفية لتغطية الصفحة */
-    }
-
-    #loading-image img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: cover; /* يجعل الصورة تغطي الشاشة بالكامل مع الحفاظ على النسب */
-    }
-
-    .footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      display: flex;
-      justify-content: space-around;
-      background-color: rgba(30, 50, 80, 0.4);
-      padding: 5px 0;
-      z-index: 10;
-      box-shadow: 0px -5px 15px rgba(0, 0, 0, 0.1);
-    }
-    .icon {
-      text-align: center;
-      text-decoration: none;
-      color: #333;
-    }
-    .icon img {
-      width: 40px;
-      height: 40px;
-      display: block;
-      margin: 0;
-    }
-    .icon span {
-      color:#fff;
-      font-size: 10px;
-      font-weight: 500;
-      display: block;
-    }
   </style>
 </head>
 <body>
 
-<div id="loading-image">
-    <img src="Shotcom_medjez1.jpg" alt="Loading...">
-</div>
-
 <div id="cesiumContainer"></div>
-<div class="footer">
-  <a href="pages/p3.html" class="icon">
-    <img src="/icon/IMG_20250222_005757.png" alt="Icon">
-    <span>Artisan</span>
-  </a>
-  <a href="/b2.html" class="icon">
-    <img src="/icon/IMG_20250222_005757.png" alt="Icon">
-    <span>Médecin</span>
-  </a>
-  <a href="/mp2.html" class="icon center-icon">
-    <img src="/icon/IMG_20250222_001033-removebg-preview.png" alt="Icon">
-    <span>Produits</span>
-  </a>
-  <a href="/4-artisan.html" class="icon">
-    <img src="/icon/IMG_20250222_005757.png" alt="Icon">
-    <span>Apps</span>
-  </a>
-  <a href="/5-médecin.html" class="icon">
-    <img src="/icon/IMG_20250222_005757.png" alt="Icon">
-    <span>Médecin</span>
-  </a>
-</div>
 
 <script>
-  // إنشاء الخريطة
+  // إنشاء العارض
   const viewer = new Cesium.Viewer('cesiumContainer', {
     imageryProvider: new Cesium.ArcGisMapServerImageryProvider({
       url: 'https://services.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer'
     }),
     terrainProvider: new Cesium.EllipsoidTerrainProvider(),
-    sceneMode: Cesium.SceneMode.SCENE3D
+    sceneMode: Cesium.SceneMode.SCENE3D,
+    requestRenderMode: false,
+    contextOptions: { preserveDrawingBuffer: true }
   });
 
-  // تحريك الكاميرا مباشرة عند تحميل الصفحة
+  // حدود مجاز الباب التقريبية
+  const west = 9.5700;   // أبعد نحو الغرب
+const east = 9.6700;   // أبعد نحو الشرق
+const south = 36.5700; // أبعد نحو الجنوب
+const north = 36.6500; // أبعد نحو الشمال
+
+  // منع الكاميرا من الخروج عن الحدود
+  const clampCameraToBounds = () => {
+    const camera = viewer.camera;
+    const cartographic = Cesium.Cartographic.fromCartesian(camera.positionWC);
+    const longitude = Cesium.Math.toDegrees(cartographic.longitude);
+    const latitude = Cesium.Math.toDegrees(cartographic.latitude);
+
+    const clampedLongitude = Math.min(Math.max(longitude, west), east);
+    const clampedLatitude = Math.min(Math.max(latitude, south), north);
+
+    if (longitude !== clampedLongitude || latitude !== clampedLatitude) {
+      const height = cartographic.height;
+      const newPosition = Cesium.Cartesian3.fromDegrees(clampedLongitude, clampedLatitude, height);
+      camera.position = newPosition;
+    }
+  };
+
+  viewer.scene.postRender.addEventListener(clampCameraToBounds);
+
+  // تحديد موضع الكاميرا في البداية
   viewer.camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(9.543598, 36.630179, 3500),
+    destination: Cesium.Cartesian3.fromDegrees(9.6192, 36.6103, 2500),
     orientation: {
-      heading: Cesium.Math.toRadians(70),
-      pitch: Cesium.Math.toRadians(-20),
+      heading: Cesium.Math.toRadians(0),
+      pitch: Cesium.Math.toRadians(-30),
       roll: 0.0
     },
-    duration: 0 // اجعل المدة 0 لتحريك الكاميرا فورًا
+    duration: 0
   });
+</script>
 
-  // تحميل بيانات الطرق من GeoJSON
-  Cesium.GeoJsonDataSource.load('export 10.geojson').then(function (dataSource) {
-    viewer.dataSources.add(dataSource);
-
-    // تعيين أنماط الطرق
-    const entities = dataSource.entities.values;
-    for (let i = 0; i < entities.length; i++) {
-      const entity = entities[i];
-      if (entity.polyline) {
-        const highwayType = entity.properties.highway.getValue();
-        let color = Cesium.Color.GRAY;  // افتراضي للطرق الفرعية
-        let width = 2;
-
-        // تحديد الألوان حسب نوع الطريق
-        if (["motorway", "trunk"].includes(highwayType)) {
-          color = Cesium.Color.BLUE;  // الأزرق للطرق الرئيسية
-          width = 4;
-        } else if (["primary", "secondary"].includes(highwayType)) {
-          color = Cesium.Color.ORANGE;
-          width = 3;
-        } else if (["tertiary", "unclassified", "residential"].includes(highwayType)) {
-          color = Cesium.Color.GRAY;  // الرمادي للطرق الفرعية
-          width = 2;
-        }
-
-        // تطبيق الألوان على الخطوط
-        entity.polyline.material = color;
-        entity.polyline.width = width;
-      }
-    }
-  });
-
-  // مراقبة تحميل جميع الطبقات وإخفاء صورة التحميل عند اكتمالها
-  viewer.scene.globe.tileLoadProgressEvent.addEventListener(function (tileCount) {
-    if (tileCount === 0) {
-      document.getElementById("loading-image").style.display = "none";
-    }
-  });
-  </script>
 </body>
 </html>
