@@ -34,11 +34,28 @@
     contextOptions: { preserveDrawingBuffer: true }
   });
 
+// 1) أعد إظهار الشمس الافتراضية:
+viewer.scene.sun.show = true;
+
+// 2) فعل الإضاءة الواقعية على التضاريس (اختياري):
+viewer.scene.globe.enableLighting = true;
+
+// 3) اختر وقتًا ثابتًا (مثال: 21 يونيو 2024 الساعة 12:00 UTC):
+const fixedDate = new Date(Date.UTC(2024, 5, 21, 5, 8, 0)); 
+viewer.clock.currentTime = Cesium.JulianDate.fromDate(fixedDate);
+
+// 4) أوقف حركة الزمن:
+viewer.clock.shouldAnimate = false;
+viewer.clock.multiplier = 0;
+
+// 5) (اختياري) منع إعادة ضبط الوقت عند انتهاء النطاق:
+viewer.clock.clockRange = Cesium.ClockRange.UNBOUNDED;
+
   // حدود مجاز الباب التقريبية
-  const west = 9.5700;   // أبعد نحو الغرب
-const east = 9.6700;   // أبعد نحو الشرق
-const south = 36.5700; // أبعد نحو الجنوب
-const north = 36.6500; // أبعد نحو الشمال
+  const west = 9.5500;   // غرباً أكثر
+const east = 9.6900;   // شرقاً أكثر
+const south = 36.5500; // جنوباً أكثر
+const north = 36.6700; // شمالاً أكثر
 
   // منع الكاميرا من الخروج عن الحدود
   const clampCameraToBounds = () => {
@@ -61,10 +78,10 @@ const north = 36.6500; // أبعد نحو الشمال
 
   // تحديد موضع الكاميرا في البداية
   viewer.camera.flyTo({
-    destination: Cesium.Cartesian3.fromDegrees(9.6192, 36.6103, 2500),
+    destination: Cesium.Cartesian3.fromDegrees(9.558945,36.632002, 1500),
     orientation: {
-      heading: Cesium.Math.toRadians(0),
-      pitch: Cesium.Math.toRadians(-30),
+      heading: Cesium.Math.toRadians(67),
+      pitch: Cesium.Math.toRadians(-10),
       roll: 0.0
     },
     duration: 0
